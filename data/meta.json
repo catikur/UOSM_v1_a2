@@ -1,0 +1,54 @@
+{
+  "$schema": "../schema/meta.schema.json",
+  "schemaVersion": 1,
+  "dataVersion": "2024.04.30+1",
+  "app": {
+    "title": "PET/BT SGK Uygunluk Rehberi",
+    "shortTitle": "PET/BT SGK",
+    "description": "SUT hukumlerine gore PET/BT tetkiklerinin SGK geri odeme uygunlugunu adim adim degerlendiren karar destek araci.",
+    "author": "Dr. A. Y.",
+    "locale": "tr-TR",
+    "themeColor": "#0f172a"
+  },
+  "regulation": {
+    "name": "Saglik Uygulama Tebligi (SUT)",
+    "baseTebligDate": "2013-03-24",
+    "baseTebligGazette": "28597",
+    "trackedRevision": {
+      "label": "30 Nisan 2024 SUT",
+      "effectiveDate": "2024-04-30",
+      "gazetteNumber": "32532",
+      "note": "Uygulamanin kurallari bu revizyona gore olusturulmustur. Yeni bir revizyon yayimlandiginda data/ altindaki dosyalar guncellenir."
+    },
+    "relevantSections": [
+      {
+        "id": "sut-2.4.4.I",
+        "label": "SUT 2.4.4.I - Pozitron Emisyon Tomografisi (PET) goruntuleme",
+        "note": "PET/BT endikasyonlari, kurum basamagi ve sure kisitlari."
+      },
+      {
+        "id": "sut-ek-2b-tablo-1",
+        "label": "SUT EK-2/B Tablo-1 - FDG PET/BT odenen ICD-10 tani listesi",
+        "note": "F-18 FDG PET/BT icin gecerli onkolojik tani kodlari."
+      }
+    ]
+  },
+  "disclaimer": {
+    "short": "Bu arac bilgilendirme amaclidir, resmi SUT metninin yerine gecmez.",
+    "long": "Sonuclar SUT metninin yorumlanmasina dayanir ve baglayici degildir. Nihai geri odeme karari SGK inceleme birimlerine aittir. Her vakada guncel SUT metni ve kurum uygulamalari esas alinmalidir."
+  },
+  "review": {
+    "lastClinicalReview": "2026-09-21",
+    "reviewIntervalDays": 90,
+    "maintainers": [
+      "@catikur"
+    ]
+  },
+  "runtime": {
+    "bundleUrl": "bundle.json",
+    "autoRefresh": true,
+    "refreshOnFocus": true,
+    "refreshIntervalMinutes": 60,
+    "note": "Uygulama once HTML icine gomulu anlik goruntuyle acilir, ardindan arka planda bundleUrl'i cekip daha yeni bir dataVersion varsa sicak degistirir. Ag yoksa gomulu veriyle calismaya devam eder."
+  }
+}

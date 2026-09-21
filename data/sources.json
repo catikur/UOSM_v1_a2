@@ -1,0 +1,41 @@
+{
+  "$schema": "../schema/sources.schema.json",
+  "schemaVersion": 1,
+  "note": "Otomatik izleme kaynaklari. scripts/fetch-sources.mjs bu kayitlari dolasir, icerik parmak izini (sha256) alir ve data/sources.lock.json ile karsilastirir. Degisiklik bulunursa CI bir konu (issue) acar.",
+  "userAgent": "UOSM-PET-CT-SGK-Rehberi/2.0 (+https://github.com/catikur/UOSM_v1_a2)",
+  "requestTimeoutMs": 30000,
+  "retries": 3,
+  "sources": [
+    {
+      "id": "mevzuat-sut",
+      "label": "Mevzuat Bilgi Sistemi - Saglik Uygulama Tebligi",
+      "url": "https://www.mevzuat.gov.tr/mevzuat?MevzuatNo=18334&MevzuatTur=9&MevzuatTertip=5",
+      "kind": "html",
+      "watch": "body",
+      "affects": ["data/meta.json", "data/rules.json", "data/code-sets.json"],
+      "normalize": ["strip-script", "strip-style", "collapse-whitespace", "strip-csrf"],
+      "enabled": true
+    },
+    {
+      "id": "resmigazete-arama",
+      "label": "Resmi Gazete - SUT degisiklik tebligleri",
+      "url": "https://www.resmigazete.gov.tr/",
+      "kind": "html",
+      "watch": "body",
+      "affects": ["data/meta.json"],
+      "normalize": ["strip-script", "strip-style", "collapse-whitespace", "strip-dates"],
+      "enabled": false,
+      "disabledReason": "Ana sayfa her gun degistigi icin gurultulu. Hedefe yonelik arama uc noktasi belirlenince acilacak."
+    },
+    {
+      "id": "sgk-duyurular",
+      "label": "SGK - Saglik duyurulari",
+      "url": "https://www.sgk.gov.tr/Duyuru/Index",
+      "kind": "html",
+      "watch": "body",
+      "affects": ["data/meta.json"],
+      "normalize": ["strip-script", "strip-style", "collapse-whitespace"],
+      "enabled": true
+    }
+  ]
+}

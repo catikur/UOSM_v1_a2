@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0f172a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="PET/CT SGK">
+    
+    <title>SGK PET/CT Uygunluk Rehberi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap');
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            min-height: 100vh;
+            -webkit-tap-highlight-color: transparent; 
+        }
+        
+        /* Mobil Uyumlu Kompakt 3D Butonlar */
+        .btn-3d {
+            position: relative;
+            width: 100%;
+            padding: 0.875rem 1rem;
+            background: #ffffff;
+            border: 2px solid #cbd5e1;
+            border-bottom-width: 5px;
+            border-radius: 1rem;
+            color: #1e293b;
+            font-size: 1rem;
+            font-weight: 800;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 0.875rem;
+            transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            margin-bottom: 0.6rem;
+            box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.05);
+            outline: none;
+            line-height: 1.2;
+        }
+
+        .btn-3d:hover {
+            border-color: #3b82f6;
+            background: #f8fafc;
+            transform: translateY(-1px);
+            border-bottom-width: 6px;
+        }
+
+        .btn-3d:active {
+            border-bottom-width: 2px;
+            transform: translateY(3px);
+            background: #eff6ff;
+            border-color: #2563eb;
+        }
+
+        .btn-3d.danger {
+            border-color: #fca5a5;
+        }
+        .btn-3d.danger:active {
+            border-color: #dc2626;
+        }
+
+        .history-chip {
+            display: flex;
+            align-items: center;
+            font-size: 0.75rem;
+            color: #1d4ed8;
+            font-weight: 800;
+            background-color: #dbeafe;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            border: 1px solid #bfdbfe;
+            white-space: nowrap;
+        }
+        .history-chip:not(:last-child)::after {
+            content: '>';
+            margin: 0 0.5rem;
+            color: #94a3b8;
+            font-weight: 900;
+        }
+
+        .animate-fade-up { animation: fadeUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .glow-effect {
+            box-shadow: 0 0 30px 10px rgba(59, 130, 246, 0.3);
+        }
+    </style>
+</head>
+<body class="relative">
+
+    <!-- GİRİŞ (SPLASH) EKRANI -->
+    <div id="splash-screen" class="fixed inset-0 z-50 flex flex-col bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white cursor-pointer transition-opacity duration-500" onclick="startApp()">
+        
+        <!-- Merkez İçerik -->
+        <div class="flex-1 flex flex-col items-center justify-center w-full px-6 text-center mt-8">
+            <div class="relative w-32 h-32 mb-8 flex items-center justify-center">
+                <div class="absolute inset-0 bg-blue-500 rounded-full blur-2xl opacity-40 animate-pulse"></div>
+                <div class="relative bg-white/10 p-6 rounded-[2rem] border border-white/20 backdrop-blur-md glow-effect">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-300">
+                        <path d="M12 2v20" />
+                        <path d="M12 6c-2.5-2-6-2-8 0 3 1.5 6 1.5 8 0" />
+                        <path d="M12 6c2.5-2 6-2 8 0-3 1.5-6 1.5-8 0" />
+                        <path d="M8 8c-2 1.5-2 4 0 5.5l8 4.5c2 1.5 2 4 0 5.5" />
+                        <path d="M16 8c2 1.5-2 4 0 5.5l-8 4.5c-2 1.5-2 4 0 5.5" />
+                    </svg>
+                </div>
+            </div>
+            
+            <h1 class="text-4xl md:text-5xl font-black tracking-tighter mb-8 leading-tight">
+                <span class="text-transparent bg-clip-text bg-gradient-to-br from-white to-blue-200">PET/CT</span><br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-300">SGK REHBERİ</span>
+            </h1>
+            
+            <div class="flex items-center gap-2 text-blue-200/90 font-black uppercase tracking-widest text-[11px] animate-pulse bg-white/5 px-6 py-3 rounded-full border border-white/10 shadow-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+                Başlamak İçin Dokunun
+            </div>
+        </div>
+
+        <!-- En Alt İmza -->
+        <div class="absolute bottom-6 w-full text-center">
+            <p class="text-blue-200/80 font-bold tracking-[0.2em] uppercase text-[11px]">
+                Geliştirici: Dr. A. Y.
+            </p>
+        </div>
+    </div>
+
+
+    <!-- ANA UYGULAMA ALANI -->
+    <div id="main-app" class="max-w-2xl mx-auto min-h-screen flex flex-col justify-between p-2 md:p-6 lg:p-8 hidden opacity-0 transition-opacity duration-500">
+        
+        <div class="flex flex-col flex-grow justify-center">
+            <!-- Header -->
+            <header class="flex items-center justify-between mb-4 gap-3 bg-white p-3 rounded-2xl shadow-sm border border-slate-200 shrink-0">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white shrink-0 shadow-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                    </div>
+                    <div>
+                        <h1 class="text-[1.1rem] font-black text-slate-900 leading-tight tracking-tight">PET/CT SGK Uygunluk</h1>
+                        <p class="text-slate-500 font-bold text-[10px] uppercase tracking-widest mt-0.5">30 Nisan 2024 SUT</p>
+                    </div>
+                </div>
+                <div class="px-3 py-1.5 bg-blue-50 rounded-lg text-[10px] font-black text-blue-600 border border-blue-100 flex items-center gap-1.5 shrink-0 hidden sm:flex">
+                    <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                    AKTİF
+                </div>
+            </header>
+
+            <!-- İzlenen Yol -->
+            <section id="history-container" class="mb-3 p-3 bg-white/90 rounded-2xl border border-slate-200 hidden animate-fade-up shadow-sm shrink-0">
+                <div id="history-path" class="flex overflow-x-auto pb-1 items-center hide-scrollbar" style="scrollbar-width: none;"></div>
+            </section>
+
+            <!-- Soru/Karar Alanı -->
+            <main class="bg-white rounded-[1.5rem] shadow-xl shadow-slate-300/40 overflow-hidden border border-slate-200 flex flex-col mb-4">
+                <div id="wizard-body" class="p-4 sm:p-6 md:p-8 flex-grow"></div>
+                
+                <footer class="px-4 py-3 bg-slate-50 border-t border-slate-200 flex justify-between items-center shrink-0">
+                    <button id="btn-back" class="px-4 py-2 text-slate-500 hover:text-slate-900 font-black text-xs flex items-center gap-1.5 invisible rounded-lg hover:bg-slate-200 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                        Geri
+                    </button>
+                    <button id="btn-reset" class="px-4 py-2 bg-slate-800 text-white rounded-lg font-black text-[10px] tracking-wider uppercase active:scale-95 transition-transform shadow-md">
+                        Baştan Başla
+                    </button>
+                </footer>
+            </main>
+        </div>
+        
+        <!-- Ana Sayfa Alt İmzası -->
+        <div class="mt-2 mb-4 shrink-0 text-center text-[11px] text-slate-500 font-bold tracking-[0.1em] uppercase">
+            Geliştirici: Dr. A. Y.
+        </div>
+    </div>
+
+    <!-- MANTIKSAL UYGULAMA KODLARI -->
+    <script>
+        function startApp() {
+            const splash = document.getElementById('splash-screen');
+            const app = document.getElementById('main-app');
+            
+            document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f8fafc');
+
+            splash.classList.add('opacity-0');
+            splash.classList.add('pointer-events-none');
+            
+            setTimeout(() => {
+                splash.classList.add('hidden');
+                app.classList.remove('hidden');
+                setTimeout(() => {
+                    app.classList.remove('opacity-0');
+                }, 50);
+            }, 500); 
+        }
+
+        const state = {
+            step: 'start',
+            history: [], 
+            labels: [],
+            currentIcd: '',
+            petType: ''
+        };
+
+        const icons = {
+            reject: `<div class="w-10 h-10 bg-red-100 text-red-600 rounded-lg flex items-center justify-center shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div>`,
+            check: `<div class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>`,
+            default: `<div class="w-10 h-10 bg-slate-100 text-slate-600 rounded-lg flex items-center justify-center shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>`,
+            search: `<div class="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>`,
+            layers: `<div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>`,
+            refresh: `<div class="w-10 h-10 bg-amber-100 text-amber-600 rounded-lg flex items-center justify-center shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.32-9.26l5.3 4.26"/></svg></div>`,
+            activity: `<div class="w-10 h-10 bg-teal-100 text-teal-600 rounded-lg flex items-center justify-center shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>`,
+            ruler: `<div class="w-10 h-10 bg-slate-100 text-slate-600 rounded-lg flex items-center justify-center shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.17 3.22c-1.37-1.37-3.58-1.37-4.95 0L2.83 16.61c-1.37 1.37-1.37 3.58 0 4.95 1.37 1.37 3.58 1.37 4.95 0l13.39-13.39c1.37-1.37 1.37-3.58 0-4.95z"/><path d="M16 10l-2 2M12 14l-2 2M8 18l-2 2M20 6l-2 2"/></svg></div>`,
+            clock: `<div class="w-10 h-10 bg-sky-100 text-sky-600 rounded-lg flex items-center justify-center shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>`,
+            doc: `<div class="w-10 h-10 bg-fuchsia-100 text-fuchsia-600 rounded-lg flex items-center justify-center shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>`,
+            hospital: `<div class="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><path d="M12 7v4M10 9h4"/></svg></div>`,
+            hospitalCross: `<div class="w-10 h-10 bg-red-100 text-red-600 rounded-lg flex items-center justify-center shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="10" y1="7" x2="14" y2="11"/><line x1="14" y1="7" x2="10" y2="11"/></svg></div>`,
+            lab: `<div class="w-10 h-10 bg-rose-100 text-rose-600 rounded-lg flex items-center justify-center shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div>`,
+            imaging: `<div class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>`,
+            pill: `<div class="w-10 h-10 bg-cyan-100 text-cyan-600 rounded-lg flex items-center justify-center shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg></div>`,
+            radiation: `<div class="w-10 h-10 bg-orange-100 text-orange-600 rounded-lg flex items-center justify-center shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></div>`,
+            target: `<div class="w-10 h-10 bg-fuchsia-100 text-fuchsia-600 rounded-lg flex items-center justify-center shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>`,
+            atom: `<div class="w-10 h-10 bg-lime-100 text-lime-600 rounded-lg flex items-center justify-center shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg></div>`,
+            biopsy: `<div class="w-10 h-10 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center shrink-0 text-xl">🔬</div>`,
+            petFdg: `<div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center shrink-0 text-xl">☢️</div>`,
+            petPsma: `<div class="w-10 h-10 bg-sky-100 text-sky-600 rounded-lg flex items-center justify-center shrink-0 text-xl">🔵</div>`,
+            petDota: `<div class="w-10 h-10 bg-teal-100 text-teal-600 rounded-lg flex items-center justify-center shrink-0 text-xl">🧬</div>`,
+            petFapi: `<div class="w-10 h-10 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center shrink-0 text-xl">🔬</div>`,
+            petBrain: `<div class="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center shrink-0 text-xl">🧠</div>`,
+            petCholine: `<div class="w-10 h-10 bg-amber-100 text-amber-600 rounded-lg flex items-center justify-center shrink-0 text-xl">⚗️</div>`,
+            petBone: `<div class="w-10 h-10 bg-stone-100 text-stone-600 rounded-lg flex items-center justify-center shrink-0 text-xl">🦴</div>`
+        };
+
+        const tablo1Codes = ['C81','C82','C83','C84','C85','C43','C71','C00','C01','C02','C03','C04','C05','C06','C07','C08','C09','C10','C11','C12','C13','C14','C32','C73','C50','C34','C45','C37','C38','C15','C16','C18','C19','C20','C21','C17','C26','C22','C23','C24','C25','C56','C53','C54','C55','C51','C52','C64','C65','C74','C66','C67','C60','C62','C40','C41','C90','C49','M95','C80','D48'];
+
+        const flow = {
+            'start': {
+                question: "Hangi Tetkik Planlanıyor?",
+                options: [
+                    { label: "F-18 FDG (801.440)", setPetType: 'fdg', next: 'icd_input', icon: icons.petFdg },
+                    { label: "Ga-68 PSMA (801.365)", setPetType: 'psma', next: 'hospital_check', icon: icons.petPsma },
+                    { label: "Ga-68 DOTATATE", setPetType: 'dota', next: 'hospital_check', icon: icons.petDota },
+                    { label: "Kolin PET F-18", setPetType: 'choline', next: 'icd_input', icon: icons.petCholine },
+                    { label: "F-18 NaF (Kemik PET)", setPetType: 'bone', next: 'icd_input', icon: icons.petBone },
+                    { label: "Beyin F-18 FDG", setPetType: 'brain', next: 'icd_input', icon: icons.petBrain },
+                    { label: "FAPI PET/CT", setPetType: 'fapi', result: 'no', isDanger: true, detail: "SGK Ödemez. FAPI PET/CT SUT geri ödeme kapsamında değildir.", icon: icons.petFapi }
+                ]
+            },
+            'hospital_check': {
+                question: "Merkez Basamak Türü?",
+                options: [
+                    { label: "3. Basamak Resmi Kurum", next: 'icd_input', icon: icons.hospital },
+                    { label: "2. Basamak veya Özel", result: 'no', isDanger: true, detail: "SGK Kapsam Dışı. Seçilen tetkikler SADECE 3. Basamak Resmi Sağlık Kurumlarında fatura edilebilir.", icon: icons.hospitalCross }
+                ]
+            },
+            'fdg_main': {
+                question: "FDG Uygulama Amacı?",
+                options: [
+                    { label: "Tanı (Kitle Karakterizasyonu)", next: 'fdg_tani', icon: icons.search },
+                    { label: "Evreleme (İlk Değerlendirme)", next: 'fdg_evreleme', icon: icons.layers },
+                    { label: "Yeniden Evreleme (Nüks)", next: 'fdg_yeniden', icon: icons.refresh },
+                    { label: "Tedavi Yanıtı", next: 'fdg_yanit', icon: icons.activity }
+                ]
+            },
+            'fdg_tani': {
+                question: "Kitle Boyutu ve Amacı?",
+                options: [
+                    { label: "Kitle ≥ 1cm (İnvaziv işlemden kaçınma vb.)", result: 'ok', endikasyon: "Tanı", icon: icons.ruler },
+                    { label: "Kitle < 1cm", result: 'no', isDanger: true, detail: "SGK Ödemez. Kitle asgari 1 cm olmalıdır.", icon: icons.reject },
+                    { label: "Kanser Tarama / Check-up", result: 'no', isDanger: true, detail: "SGK Ödemez. Tarama amaçlı PET karşılanmaz.", icon: icons.reject }
+                ]
+            },
+            'fdg_evreleme': {
+                question: "Hastanın Tedavi Durumu?",
+                options: [
+                    { 
+                        label: "Tedavi Henüz Başlamadı", 
+                        next: (s) => s.currentIcd.startsWith('C43') ? 'mm_evreleme_kriter' : { result: 'ok', endikasyon: "Evreleme" },
+                        icon: icons.check 
+                    },
+                    { label: "Tedavi Süreci Başladı", result: 'no', isDanger: true, detail: "SGK Ödemez. Evreleme tedavi öncesi yapılmalıdır.", icon: icons.reject }
+                ]
+            },
+            'mm_evreleme_kriter': {
+                question: "Malign Melanom (C43) Evreleme Kriteri",
+                options: [
+                    { 
+                        label: "Breslow kalınlığı >0.76 ve/veya Clark level >3", 
+                        subLabel: `<div class="mt-1 text-[11px] text-slate-500 font-semibold leading-tight">Patoloji raporunda bu şartlardan en az biri sağlanıyor.</div>`,
+                        result: 'ok', 
+                        endikasyon: "Evreleme", 
+                        icon: icons.check 
+                    },
+                    { 
+                        label: "Kriterler Sağlanmıyor", 
+                        result: 'no', 
+                        isDanger: true, 
+                        detail: "SGK Ödemez. Malign melanom evrelemesi için Breslow kalınlığı >0.76 ve/veya Clark level >3 olması şarttır.", 
+                        icon: icons.reject 
+                    }
+                ]
+            },
+            'fdg_yanit': {
+                question: "Hangi Tedavi Sonrası?",
+                options: [
+                    { label: "Kemoterapi", next: 'fdg_yanit_kemo', icon: icons.pill },
+                    { label: "Radyoterapi", next: 'fdg_yanit_rt', icon: icons.radiation },
+                    { label: "Hedefe Yönelik (Akıllı İlaç)", next: 'fdg_yanit_hedef', icon: icons.target },
+                    { label: "Radyonüklid Tedavi", next: 'fdg_yanit_radyonuklid', icon: icons.atom }
+                ]
+            },
+            'fdg_yanit_kemo': {
+                question: "KT Sonrası Süre ve Protokol?",
+                options: [
+                    { label: "Süre Uygun (≥ 15 gün) VE Protokol Değişimi", result: 'ok', endikasyon: "Tedaviye Yanıtın Değerlendirilmesi", icon: icons.clock },
+                    { label: "Süre Uygun (≥ 15 gün) FAKAT Protokol Değişmedi", result: 'no', isDanger: true, detail: "SGK Ödemez. KT protokolü değişmediyse rutin yanıt amaçlı işlemler ödenmez.", icon: icons.reject },
+                    { label: "Süre Uygun Değil (< 15 gün)", result: 'no', isDanger: true, detail: "SGK Ödemez. KT sonrası en az 15 gün beklenmelidir.", icon: icons.reject }
+                ]
+            },
+            'fdg_yanit_rt': {
+                question: "RT Üzerinden Ne Kadar Geçti?",
+                options: [
+                    { label: "≥ 3 Ay Geçti", result: 'ok', endikasyon: "Tedaviye Yanıtın Değerlendirilmesi", icon: icons.clock },
+                    { label: "< 3 Ay Geçti", result: 'no', isDanger: true, detail: "SGK Ödemez. RT sonrası en az 3 ay beklenmelidir.", icon: icons.reject }
+                ]
+            },
+            'fdg_yanit_hedef': {
+                question: "Hedefe Yönelik Tedavi Süresi?",
+                options: [
+                    { label: "≥ 3 Ay Geçti", result: 'ok', endikasyon: "Tedaviye Yanıtın Değerlendirilmesi", icon: icons.clock },
+                    { label: "< 3 Ay Geçti", result: 'no', isDanger: true, detail: "SGK Ödemez. Akıllı ilaç sonrası en az 3 ay beklenmelidir.", icon: icons.reject }
+                ]
+            },
+            'fdg_yanit_radyonuklid': {
+                question: "Radyonüklid Tedavi Süresi?",
+                options: [
+                    { label: "≥ 1 Ay Geçti", result: 'ok', endikasyon: "Tedaviye Yanıtın Değerlendirilmesi", icon: icons.clock },
+                    { label: "< 1 Ay Geçti", result: 'no', isDanger: true, detail: "SGK Ödemez. Radyonüklid tedavi sonrası en az 1 ay beklenmelidir.", icon: icons.reject }
+                ]
+            },
+            'fdg_yeniden': {
+                question: "Nüks Şüphesi Kanıtı?",
+                options: [
+                    { 
+                        label: "1. Biyopsi / Patoloji Kanıtı Var", 
+                        subLabel: `<div class="mt-1 text-[11px] text-slate-500 font-semibold leading-tight">Nüks şüphesi histopatolojik/sitolojik olarak doğrulandı.</div>`, 
+                        result: 'ok', 
+                        endikasyon: "Yeniden Evreleme (Patolojik Nüks)", 
+                        icon: icons.biopsy 
+                    },
+                    { 
+                        label: (s) => {
+                            const icd = s.currentIcd || '';
+                            if (icd.startsWith('C50')) return "2. Tümör Markırı (CA 15-3 / CEA) Artışı";
+                            if (/^C1[689]|^C2[01]|^C25/.test(icd)) return "2. Tümör Markırı (CEA / CA 19-9) Artışı";
+                            if (icd.startsWith('C22')) return "2. Tümör Markırı (AFP) Artışı";
+                            if (icd.startsWith('C62')) return "2. Tümör Markırı (AFP / Beta-hCG) Artışı";
+                            if (icd.startsWith('C56')) return "2. Tümör Markırı (CA 125) Artışı";
+                            if (icd.startsWith('C61')) return "2. Tümör Markırı (PSA) Artışı";
+                            if (icd.startsWith('C73')) return "2. Tümör Markırı (Tiroglobulin / Kalsitonin) Artışı";
+                            if (icd.startsWith('C7A') || icd.startsWith('C75') || s.petType === 'dota') return "2. Tümör Markırı (Kromogranin A) Artışı";
+                            return "2. İlgili Tümör Markırında Artış";
+                        },
+                        subLabel: (s) => `<div class="mt-1 text-[11px] text-slate-500 font-semibold leading-tight">Girilen ICD-10 koduna (${s.currentIcd}) özgü tümör belirtecinde yükselme saptanması.</div>`,
+                        result: 'ok', 
+                        endikasyon: "Yeniden Evreleme (Biyokimyasal Nüks)",
+                        icon: icons.lab
+                    },
+                    { 
+                        label: "3. Görüntüleme Yöntemlerinde (CT, MR, USG) Nüks Kuşkusu", 
+                        result: 'ok', 
+                        endikasyon: "Yeniden Evreleme (Radyolojik Nüks)",
+                        icon: icons.imaging
+                    },
+                    { 
+                        label: "4. Malign Melanom (3 yıl) / Yüksek Grade NHL (2 yıl)", 
+                        result: 'ok', 
+                        endikasyon: "Yeniden Evreleme (Rutin Kontrol)", 
+                        icon: icons.activity,
+                        condition: (s) => ['C43', 'C81', 'C82', 'C83', 'C84', 'C85'].some(c => s.currentIcd.startsWith(c))
+                    },
+                    { label: "5. Kanıt yok, Rutin Kontrol", result: 'no', isDanger: true, detail: "SGK Ödemez. Markır artışı, patolojik kanıt veya radyolojik şüphe olmadan rutin kontrol ödenmez.", icon: icons.reject }
+                ]
+            },
+            'psma_main': {
+                question: "Ga-68 PSMA Uygulama Amacı?",
+                options: [
+                    { label: "Tanı (2. Biyopsi Yeri Belirleme)", subLabel: `<div class="mt-1 text-[11px] text-slate-500 font-semibold leading-tight">PSA > 4, PI-RADS > 3 ve rektal nodül var. 1. biyopsi negatif, 2. biyopsi planlanıyor.</div>`, next: 'psma_biopsy_hosp', icon: icons.search },
+                    { label: "Başlangıç Evreleme", subLabel: `<div class="mt-1 text-[11px] text-slate-500 font-semibold leading-tight">Gleason > 7 veya PSA > 10</div>`, next: 'psma_evreleme_hosp', icon: icons.layers },
+                    { label: "Yeniden Evreleme (Biyokimyasal Nüks)", subLabel: `<div class="mt-1 text-[11px] text-slate-500 font-semibold leading-tight">Tedavi sonrası PSA yüksekliği</div>`, next: 'psma_nuks_hosp', icon: icons.refresh },
+                    { label: "Radyonüklid Tedavi Planlama / Yanıtı", subLabel: `<div class="mt-1 text-[11px] text-slate-500 font-semibold leading-tight">PSMA hedefli tedaviye uygunluk veya tedavi sonrası yanıt değerlendirmesi</div>`, next: 'psma_tedavi_hosp', icon: icons.atom }
+                ]
+            },
+            'psma_biopsy_hosp': {
+                question: "Merkez Basamak Türü?",
+                options: [
+                    { label: "3. Basamak Resmi Sağlık Kurumu", result: 'ok', endikasyon: "Tanı (Biyopsi Lokasyonunun Belirlenmesi)", icon: icons.hospital },
+                    { label: "2. Basamak veya Özel Hastane", result: 'no', isDanger: true, detail: "SGK Kapsam Dışı. Tanı/Biyopsi amaçlı PSMA PET/CT sadece 3. Basamak Resmi Kurumlarda fatura edilebilir.", icon: icons.hospitalCross }
+                ]
+            },
+            'psma_evreleme_hosp': {
+                question: "Merkez Basamak Türü?",
+                options: [
+                    { label: "3. Basamak Resmi Sağlık Kurumu", result: 'ok', endikasyon: "Başlangıç Evreleme", icon: icons.hospital },
+                    { label: "2. Basamak veya Özel Hastane", result: 'no', isDanger: true, detail: "SGK Kapsam Dışı. Evreleme amaçlı PSMA PET/CT sadece 3. Basamak Resmi Kurumlarda fatura edilebilir.", icon: icons.hospitalCross }
+                ]
+            },
+            'psma_nuks_hosp': {
+                question: "Merkez Basamak Türü?",
+                options: [
+                    { label: "3. Basamak Resmi Sağlık Kurumu", result: 'ok', endikasyon: "Yeniden Evreleme (Biyokimyasal Nüks)", icon: icons.hospital },
+                    { label: "2. Basamak veya Özel Hastane", result: 'no', isDanger: true, detail: "SGK Kapsam Dışı. Nüks amaçlı PSMA PET/CT sadece 3. Basamak Resmi Kurumlarda fatura edilebilir.", icon: icons.hospitalCross }
+                ]
+            },
+            'psma_tedavi_hosp': {
+                question: "Hastane ve Ünite Durumu?",
+                options: [
+                    { label: "Yataklı Radyonüklid Tedavi Ünitesi Olan Hastane (Özel/Kamu)", result: 'ok', endikasyon: "Radyonüklid Tedavi Planlama / Yanıt", icon: icons.check },
+                    { label: "3. Basamak Resmi Sağlık Kurumu", result: 'ok', endikasyon: "Radyonüklid Tedavi Planlama / Yanıt", icon: icons.hospital },
+                    { label: "Tedavi Ünitesi OLMAYAN 2. Basamak veya Özel Hastane", result: 'no', isDanger: true, detail: "SGK Kapsam Dışı. Tedavi planlama ve yanıtı için 3. Basamak Resmi VEYA Yataklı Radyonüklid Tedavi Ünitesine sahip olmak şarttır.", icon: icons.hospitalCross }
+                ]
+            },
+            'dota_main': {
+                question: "Nöroendokrin Tümör (NET) Durumu?",
+                options: [
+                    { label: "Tanılı NET / Medüller Tiroid", next: 'dota_hosp_evreleme', icon: icons.check },
+                    { label: "Görüntüleme ile bulunamayan şüpheli odak", next: 'dota_hosp_tani', icon: icons.search }
+                ]
+            },
+            'dota_hosp_evreleme': {
+                question: "Merkez Basamak Türü?",
+                options: [
+                    { label: "3. Basamak Resmi Sağlık Kurumu", result: 'ok', endikasyon: "Evreleme / Yeniden Evreleme", icon: icons.hospital },
+                    { label: "2. Basamak veya Özel Hastane", result: 'no', isDanger: true, detail: "SGK Kapsam Dışı. DOTATATE PET/CT sadece 3. Basamak Resmi Kurumlarda fatura edilebilir.", icon: icons.hospitalCross }
+                ]
+            },
+            'dota_hosp_tani': {
+                question: "Merkez Basamak Türü?",
+                options: [
+                    { label: "3. Basamak Resmi Sağlık Kurumu", result: 'ok', endikasyon: "Tanı (Primer Odak Arama)", icon: icons.hospital },
+                    { label: "2. Basamak veya Özel Hastane", result: 'no', isDanger: true, detail: "SGK Kapsam Dışı. DOTATATE PET/CT sadece 3. Basamak Resmi Kurumlarda fatura edilebilir.", icon: icons.hospitalCross }
+                ]
+            },
+            'choline_step1': {
+                question: "Hiperparatiroidi Tanısı ve Tetkik Durumu?",
+                options: [
+                    { label: "USG Normal/Şüpheli + MIBI SPECT Negatif", result: 'ok', endikasyon: "Tanı (Paratiroid Adenomu Tespiti)", icon: icons.check },
+                    { label: "Önceki sintigrafi (MIBI) yapılmadı veya lokalize etti", result: 'no', isDanger: true, detail: "SGK Ödemez. SUT gereği önce Tc-99m MIBI sintigrafi yapılmalı ve sonuç alınamamalıdır.", icon: icons.reject }
+                ]
+            },
+            'bone_step1': {
+                question: "Kemik PET (NaF) Şartları Sağlanıyor mu?",
+                options: [
+                    { label: "Onkolojik Tanı + Sintigrafi Şüphesi + 3 Hekimli Rapor", result: 'ok', endikasyon: "Tanı (Kemik Metastazı Değerlendirmesi)", icon: icons.doc },
+                    { label: "Rapor Eksik / Onkolojik Tanı Yok", result: 'no', isDanger: true, detail: "SGK Ödemez. Kesin onkolojik tanı, şüpheli sintigrafi ve (Üniversite/EAH'den) 3 hekimli rapor şarttır.", icon: icons.reject }
+                ]
+            },
+            'brain_step1': {
+                question: "Beyin PET Endikasyonu?",
+                options: [
+                    { label: "Dirençli Epilepsi (Cerrahi Planlanan)", next: 'brain_epilepsy_hosp', icon: icons.activity },
+                    { label: "Alzheimer / Demans", next: 'brain_alz_hosp', icon: icons.search }
+                ]
+            },
+            'brain_epilepsy_hosp': {
+                question: "Merkez Basamak Türü?",
+                options: [
+                    { label: "3. Basamak Resmi Sağlık Kurumu", result: 'ok', endikasyon: "Dirençli Epilepsi Odağının Belirlenmesi", icon: icons.hospital },
+                    { label: "2. Basamak veya Özel Hastane", result: 'no', isDanger: true, detail: "SGK Kapsam Dışı. Epilepsi endikasyonlu Beyin PET sadece 3. Basamak Resmi Kurumlarda fatura edilebilir.", icon: icons.hospitalCross }
+                ]
+            },
+            'brain_alz_hosp': {
+                question: "Alzheimer Heyet Raporu ve Kurum?",
+                options: [
+                    { label: "3. Basamak Kurum VE 3. Basamak Kurul Raporu Var", result: 'ok', endikasyon: "Tanı", icon: icons.doc },
+                    { label: "Rapor Yok veya İşlem 2. Basamakta", result: 'no', isDanger: true, detail: "SGK Ödemez. Alzheimer tanısı için 3. basamak heyet raporu ve işlemin 3. basamakta yapılması zorunludur.", icon: icons.reject }
+                ]
+            }
+        };
+
+        function setICDAndValidate(code) {
+            document.getElementById('icd-input').value = code;
+            validateICD();
+        }
+
+        function validateICD() {
+            const input = document.getElementById('icd-input').value.trim().toUpperCase();
+            if(!input) { alert("Lütfen ICD-10 kodunu giriniz!"); return; }
+
+            state.currentIcd = input;
+            state.history.push(state.step);
+            state.labels.push(`ICD: ${input}`);
+
+            if (state.petType === 'psma') {
+                if (!input.startsWith('C61') && !input.startsWith('R39') && !input.startsWith('D40') && !input.startsWith('Z03')) {
+                    state.step = { result: 'no', detail: `SGK Ödemez. PSMA PET/CT Prostat Kanseri (C61) veya kuvvetli şüphe (R39.1 vb.) bildiren ICD kodları ile ödenir.` };
+                } else {
+                    state.step = 'psma_main';
+                }
+            } 
+            else if (state.petType === 'fdg') {
+                if (!tablo1Codes.some(c => input.startsWith(c))) state.step = { result: 'no', detail: `SGK Ödemez. Girdiğiniz ${input} kodu SUT Tablo-1'de yok.` };
+                else state.step = 'fdg_main';
+            } 
+            else if (state.petType === 'dota') {
+                state.step = 'dota_main';
+            }
+            else if (state.petType === 'choline') {
+                if (!input.startsWith('E21')) state.step = { result: 'no', detail: `SGK Ödemez. Kolin PET primer hiperparatiroidi (E21.0 vb.) ile ödenir.` };
+                else state.step = 'choline_step1';
+            }
+            else if (state.petType === 'bone') {
+                if (!tablo1Codes.some(c => input.startsWith(c))) state.step = { result: 'no', detail: `SGK Ödemez. Kemik PET için geçerli bir onkolojik ICD kodu girilmelidir.` };
+                else state.step = 'bone_step1';
+            }
+            else if (state.petType === 'brain') {
+                state.step = 'brain_step1';
+            }
+            else state.step = { result: 'no', detail: "Bilinmeyen eşleşme." };
+            
+            render();
+        }
+
+        function renderIcdInput() {
+            const body = document.getElementById('wizard-body');
+            document.getElementById('history-container').classList.remove('hidden');
+            
+            let qs = '';
+            if (state.petType === 'fdg') {
+                qs = `<button class="btn-3d flex-col items-center justify-center p-2 gap-1 text-center" onclick="setICDAndValidate('C34')"><div class="text-2xl">🫁</div><span class="text-xs">Akciğer (C34)</span></button>
+                      <button class="btn-3d flex-col items-center justify-center p-2 gap-1 text-center" onclick="setICDAndValidate('C50')"><div class="text-2xl">🎀</div><span class="text-xs">Meme (C50)</span></button>
+                      <button class="btn-3d flex-col items-center justify-center p-2 gap-1 text-center" onclick="setICDAndValidate('C18')"><div class="text-2xl">🧬</div><span class="text-xs">Kolon (C18)</span></button>
+                      <button class="btn-3d flex-col items-center justify-center p-2 gap-1 text-center" onclick="setICDAndValidate('C81')"><div class="text-2xl">🩸</div><span class="text-xs">Lenfoma (C81)</span></button>`;
+            } else if (state.petType === 'psma') {
+                qs = `<button class="btn-3d flex-col items-center justify-center p-2 gap-1 text-center" onclick="setICDAndValidate('C61')"><div class="text-2xl">🔵</div><span class="text-xs">Prostat (C61)</span></button>
+                      <button class="btn-3d flex-col items-center justify-center p-2 gap-1 text-center" onclick="setICDAndValidate('R39.1')"><div class="text-2xl">🔍</div><span class="text-xs">PSA Yüksekliği</span></button>`;
+            } else if (state.petType === 'dota') {
+                qs = `<button class="btn-3d flex-col items-center justify-center p-2 gap-1 text-center" onclick="setICDAndValidate('C75')"><div class="text-2xl">🧬</div><span class="text-xs">Endokrin TM (C75)</span></button>
+                      <button class="btn-3d flex-col items-center justify-center p-2 gap-1 text-center" onclick="setICDAndValidate('C25')"><div class="text-2xl">🧬</div><span class="text-xs">Pankreas (C25)</span></button>`;
+            } else if (state.petType === 'choline') {
+                qs = `<button class="btn-3d flex-col items-center justify-center p-2 gap-1 text-center" onclick="setICDAndValidate('E21.0')"><div class="text-2xl">⚗️</div><span class="text-xs">Hiperparatiroidi</span></button>`;
+            } else if (state.petType === 'bone') {
+                qs = `<button class="btn-3d flex-col items-center justify-center p-2 gap-1 text-center" onclick="setICDAndValidate('C61')"><div class="text-2xl">🔵</div><span class="text-xs">Prostat (C61)</span></button>
+                      <button class="btn-3d flex-col items-center justify-center p-2 gap-1 text-center" onclick="setICDAndValidate('C50')"><div class="text-2xl">🎀</div><span class="text-xs">Meme (C50)</span></button>
+                      <button class="btn-3d flex-col items-center justify-center p-2 gap-1 text-center" onclick="setICDAndValidate('C34')"><div class="text-2xl">🫁</div><span class="text-xs">Akciğer (C34)</span></button>`;
+            } else if (state.petType === 'brain') {
+                qs = `<button class="btn-3d flex-col items-center justify-center p-2 gap-1 text-center" onclick="setICDAndValidate('G30')"><div class="text-2xl">🧠</div><span class="text-xs">Alzheimer (G30)</span></button>
+                      <button class="btn-3d flex-col items-center justify-center p-2 gap-1 text-center" onclick="setICDAndValidate('G40')"><div class="text-2xl">⚡</div><span class="text-xs">Epilepsi (G40)</span></button>`;
+            }
+
+            body.innerHTML = `
+                <div class="animate-fade-up text-center">
+                    <h2 class="text-xl md:text-2xl font-black text-slate-800 mb-2 leading-tight">ICD-10 Kodunu Girin</h2>
+                    
+                    <div class="relative mb-4 mt-4">
+                        <input type="text" id="icd-input" placeholder="Örn: C34, C61..." 
+                               class="w-full text-2xl md:text-3xl p-4 border-[3px] border-slate-300 rounded-2xl focus:border-blue-600 focus:ring-4 focus:ring-blue-500/20 outline-none font-black text-center text-slate-800 uppercase shadow-inner">
+                    </div>
+                    
+                    <button onclick="validateICD()" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl text-lg font-black shadow-lg shadow-blue-500/30 transform hover:-translate-y-1 active:translate-y-1 transition-all border-b-[4px] border-blue-800 active:border-b-0">
+                        KONTROL ET
+                    </button>
+                    
+                    ${qs ? `
+                    <div class="mt-6">
+                        <div class="text-slate-400 font-black uppercase tracking-[0.1em] text-[10px] mb-3 border-t pt-3">HIZLI SEÇİM</div>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-left">${qs}</div>
+                    </div>` : ''}
+                </div>
+            `;
+
+            document.getElementById('icd-input').addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') validateICD();
+            });
+        }
+
+        function render() {
+            const body = document.getElementById('wizard-body');
+            const backBtn = document.getElementById('btn-back');
+            const historyContainer = document.getElementById('history-container');
+            const historyPath = document.getElementById('history-path');
+
+            backBtn.style.visibility = state.step === 'start' ? 'hidden' : 'visible';
+
+            if (state.labels.length > 0) {
+                historyContainer.classList.remove('hidden');
+                historyPath.innerHTML = state.labels.map(l => `<span class="history-chip">${l}</span>`).join('');
+                historyPath.scrollLeft = historyPath.scrollWidth;
+            } else {
+                historyContainer.classList.add('hidden');
+            }
+
+            if (state.step === 'icd_input') { renderIcdInput(); return; }
+
+            const current = flow[state.step];
+            if (state.step && state.step.result) { renderResult(state.step); return; }
+            if (!current) { reset(); return; }
+
+            let html = `
+                <div class="animate-fade-up">
+                    <h2 class="text-lg md:text-xl font-black text-slate-800 mb-6 leading-tight text-center">${current.question}</h2>
+                    <div class="w-full flex flex-col gap-1">
+            `;
+
+            current.options.forEach((opt, idx) => {
+                if (typeof opt.condition === 'function' && !opt.condition(state)) return; 
+
+                const isDanger = opt.isDanger ? 'danger' : '';
+                const iconHtml = opt.icon || icons.default;
+                
+                let labelText = typeof opt.label === 'function' ? opt.label(state) : opt.label;
+                let subLabelText = typeof opt.subLabel === 'function' ? opt.subLabel(state) : opt.subLabel;
+                
+                let textHtml = `<span class="flex-1">${labelText}</span>`;
+                if (subLabelText) {
+                    textHtml = `<div class="flex flex-col flex-1 items-start">
+                                    <span>${labelText}</span>
+                                    ${subLabelText}
+                                </div>`;
+                }
+
+                html += `
+                    <button class="btn-3d ${isDanger}" onclick="handleSelect(${idx})">
+                        ${iconHtml}
+                        ${textHtml}
+                    </button>
+                `;
+            });
+
+            html += `</div></div>`;
+            body.innerHTML = html;
+        }
+
+        function renderResult(node) {
+            const body = document.getElementById('wizard-body');
+            const isOk = node.result === 'ok';
+            const colorClass = isOk ? 'text-green-600' : 'text-red-600';
+            const bgClass = isOk ? 'bg-green-600' : 'bg-red-600';
+            
+            let sutInfo = '';
+            if (isOk) {
+                sutInfo = `
+                    <div class="mt-6 bg-slate-50 p-4 rounded-2xl border-2 border-slate-200 text-left">
+                        <div class="text-slate-500 text-[10px] font-black uppercase mb-1">Bildirilecek Endikasyon</div>
+                        <div class="text-slate-900 font-black text-sm md:text-base leading-snug mb-3">${node.endikasyon || "-"}</div>
+                        
+                        <div class="text-slate-500 text-[10px] font-black uppercase mb-1">Geçerli ICD-10</div>
+                        <div class="text-blue-700 font-black text-lg md:text-xl">${state.currentIcd || "-"}</div>
+                    </div>
+                `;
+            }
+
+            body.innerHTML = `
+                <div class="animate-fade-up text-center py-2">
+                    <div class="w-20 h-20 md:w-24 md:h-24 ${bgClass} text-white rounded-3xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-current/30">
+                        ${isOk 
+                          ? '<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>' 
+                          : '<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'}
+                    </div>
+                    <h2 class="text-2xl md:text-3xl font-black ${colorClass} mb-3 leading-tight tracking-tight">
+                        ${isOk ? 'SGK UYGUN' : 'KAPSAM DIŞI'}
+                    </h2>
+                    
+                    ${node.detail ? `<p class="text-[13px] md:text-sm text-slate-700 font-semibold leading-snug max-w-lg mx-auto">${node.detail}</p>` : ''}
+                    
+                    ${sutInfo}
+                </div>
+            `;
+        }
+
+        window.handleSelect = (optIdx) => {
+            const currentOptions = flow[state.step].options;
+            const selectedOpt = currentOptions[optIdx];
+
+            if (selectedOpt.setPetType) state.petType = selectedOpt.setPetType;
+
+            state.history.push(state.step);
+            
+            let rawLabel = typeof selectedOpt.label === 'function' ? selectedOpt.label(state) : selectedOpt.label;
+            let chipLabel = rawLabel.split('(')[0].trim();
+            if(chipLabel.length > 15) chipLabel = chipLabel.substring(0, 15) + '...';
+            state.labels.push(chipLabel);
+            
+            if (selectedOpt.result) {
+                state.step = { ...selectedOpt };
+            } else if (typeof selectedOpt.next === 'function') {
+                const nextVal = selectedOpt.next(state);
+                if (typeof nextVal === 'string') {
+                    state.step = nextVal;
+                } else {
+                    state.step = nextVal; 
+                }
+            } else {
+                state.step = selectedOpt.next;
+            }
+            render();
+        }
+
+        document.getElementById('btn-back').onclick = () => {
+            if (state.history.length > 0) {
+                state.step = state.history.pop();
+                state.labels.pop();
+                render();
+            }
+        };
+
+        function reset() {
+            state.step = 'start';
+            state.history = [];
+            state.labels = [];
+            state.currentIcd = '';
+            state.petType = '';
+            render();
+        }
+        document.getElementById('btn-reset').onclick = reset;
+
+        render();
+    </script>
+</body>
+</html>

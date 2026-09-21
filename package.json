@@ -1,0 +1,26 @@
+{
+  "name": "uosm-pet-ct-sgk-rehberi",
+  "version": "2.0.0",
+  "description": "SUT temelli PET/BT SGK uygunluk karar destek rehberi - veri odakli, parametrik ve otomatik guncellenebilir.",
+  "type": "module",
+  "private": true,
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.10"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "validate": "node scripts/validate.mjs",
+    "test": "node --test \"test/*.test.mjs\"",
+    "fetch:sources": "node scripts/fetch-sources.mjs",
+    "check:updates": "node scripts/check-updates.mjs",
+    "check:build": "node scripts/build.mjs --check",
+    "verify": "npm run validate && npm run test && npm run check:build",
+    "serve": "node scripts/serve.mjs"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/catikur/UOSM_v1_a2.git"
+  }
+}

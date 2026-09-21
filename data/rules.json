@@ -1,0 +1,403 @@
+{
+  "$schema": "../schema/rules.schema.json",
+  "schemaVersion": 1,
+  "note": "Karar agaci. Saf veridir: fonksiyon icermez, bu yuzden sema ile dogrulanabilir ve kod degistirmeden guncellenebilir. Sablon belirtecleri: {code}, {codeLabel}, {tracer}, {tracerCode}, {marker.label}, {params.X}.",
+  "entryNode": "start",
+  "predicateOps": ["always", "allOf", "anyOf", "not", "icdStartsWith", "tracerIs", "facilityIs"],
+  "nodes": [
+    {
+      "id": "start",
+      "question": "Hangi tetkik planlaniyor?",
+      "hint": "Radyofarmasotigi secerek baslayin.",
+      "optionsFrom": "tracers"
+    },
+
+    {
+      "id": "fdg_amac",
+      "question": "FDG PET/BT uygulama amaci?",
+      "options": [
+        { "id": "tani", "label": "Tani (kitle karakterizasyonu)", "icon": "search", "next": "fdg_tani" },
+        { "id": "evreleme", "label": "Evreleme (ilk degerlendirme)", "icon": "layers", "next": "fdg_evreleme" },
+        { "id": "yeniden", "label": "Yeniden evreleme (nuks)", "icon": "refresh", "next": "fdg_yeniden" },
+        { "id": "yanit", "label": "Tedaviye yanit degerlendirmesi", "icon": "activity", "next": "fdg_yanit" }
+      ]
+    },
+    {
+      "id": "fdg_tani",
+      "question": "Kitle boyutu ve tetkik amaci?",
+      "options": [
+        {
+          "id": "buyuk",
+          "label": "Kitle >= 1 cm (invaziv islemden kacinma vb.)",
+          "icon": "ruler",
+          "outcome": { "status": "covered", "indication": "Tani", "sutRefs": ["sut-2.4.4.I"] }
+        },
+        {
+          "id": "kucuk",
+          "label": "Kitle < 1 cm",
+          "icon": "reject",
+          "tone": "danger",
+          "outcome": { "status": "not-covered", "reason": "Tani amacli PET/BT icin kitle boyutu asgari 1 cm olmalidir.", "sutRefs": ["sut-2.4.4.I"] }
+        },
+        {
+          "id": "tarama",
+          "label": "Kanser taramasi / check-up",
+          "icon": "reject",
+          "tone": "danger",
+          "outcome": { "status": "not-covered", "reason": "Tarama ve check-up amacli PET/BT SGK tarafindan karsilanmaz.", "sutRefs": ["sut-2.4.4.I"] }
+        }
+      ]
+    },
+    {
+      "id": "fdg_evreleme",
+      "question": "Hastanin tedavi durumu?",
+      "options": [
+        {
+          "id": "baslamadi",
+          "label": "Tedavi henuz baslamadi",
+          "icon": "check",
+          "branch": [
+            { "when": { "icdStartsWith": ["C43"] }, "next": "melanom_evreleme_kriter" },
+            { "outcome": { "status": "covered", "indication": "Evreleme", "sutRefs": ["sut-2.4.4.I"] } }
+          ]
+        },
+        {
+          "id": "basladi",
+          "label": "Tedavi sureci basladi",
+          "icon": "reject",
+          "tone": "danger",
+          "outcome": { "status": "not-covered", "reason": "Evreleme amacli PET/BT tedavi oncesinde yapilmalidir.", "sutRefs": ["sut-2.4.4.I"] }
+        }
+      ]
+    },
+    {
+      "id": "melanom_evreleme_kriter",
+      "question": "Malign melanom (C43) evreleme kriteri saglaniyor mu?",
+      "hint": "Patoloji raporundaki Breslow kalinligi ve Clark duzeyi degerlendirilir.",
+      "options": [
+        {
+          "id": "saglaniyor",
+          "label": "Breslow kalinligi > 0,76 mm ve/veya Clark duzeyi > 3",
+          "note": "Patoloji raporunda bu sartlardan en az biri saglaniyor.",
+          "icon": "check",
+          "outcome": { "status": "covered", "indication": "Evreleme (malign melanom)", "sutRefs": ["sut-2.4.4.I"] }
+        },
+        {
+          "id": "saglanmiyor",
+          "label": "Kriterler saglanmiyor",
+          "icon": "reject",
+          "tone": "danger",
+          "outcome": { "status": "not-covered", "reason": "Malign melanom evrelemesi icin Breslow kalinligi > 0,76 mm ve/veya Clark duzeyi > 3 olmasi sarttir.", "sutRefs": ["sut-2.4.4.I"] }
+        }
+      ]
+    },
+    {
+      "id": "fdg_yeniden",
+      "question": "Nuks suphesini destekleyen kanit nedir?",
+      "hint": "Yeniden evreleme icin asagidaki kanitlardan en az biri gereklidir.",
+      "options": [
+        {
+          "id": "patoloji",
+          "label": "Biyopsi / patoloji kaniti var",
+          "note": "Nuks suphesi histopatolojik veya sitolojik olarak dogrulandi.",
+          "icon": "biopsy",
+          "outcome": { "status": "covered", "indication": "Yeniden evreleme (patolojik nuks)", "sutRefs": ["sut-2.4.4.I"] }
+        },
+        {
+          "id": "markir",
+          "label": "{marker.label}",
+          "note": "Girilen ICD-10 koduna ({code}) ozgu tumor belirtecinde yukselme saptanmasi.",
+          "icon": "lab",
+          "outcome": { "status": "covered", "indication": "Yeniden evreleme (biyokimyasal nuks)", "sutRefs": ["sut-2.4.4.I"] }
+        },
+        {
+          "id": "goruntuleme",
+          "label": "Goruntuleme yontemlerinde (BT, MR, USG) nuks kuskusu",
+          "icon": "imaging",
+          "outcome": { "status": "covered", "indication": "Yeniden evreleme (radyolojik nuks)", "sutRefs": ["sut-2.4.4.I"] }
+        },
+        {
+          "id": "rutin-izlem",
+          "label": "Rutin izlem: malign melanom (3 yil) / yuksek dereceli NHL (2 yil)",
+          "note": "Yalnizca bu tani gruplarinda, belirtilen izlem suresi icinde gecerlidir.",
+          "icon": "activity",
+          "visibleWhen": { "icdStartsWith": ["C43", "C81", "C82", "C83", "C84", "C85"] },
+          "outcome": { "status": "covered", "indication": "Yeniden evreleme (rutin izlem)", "sutRefs": ["sut-2.4.4.I"] }
+        },
+        {
+          "id": "kanit-yok",
+          "label": "Kanit yok, rutin kontrol",
+          "icon": "reject",
+          "tone": "danger",
+          "outcome": { "status": "not-covered", "reason": "Belirtec artisi, patolojik kanit veya radyolojik suphe olmadan rutin kontrol amacli PET/BT odenmez.", "sutRefs": ["sut-2.4.4.I"] }
+        }
+      ]
+    },
+    {
+      "id": "fdg_yanit",
+      "question": "Hangi tedavi sonrasi degerlendirme yapiliyor?",
+      "options": [
+        { "id": "kemo", "label": "Kemoterapi", "icon": "pill", "next": "fdg_yanit_kemo" },
+        {
+          "id": "rt",
+          "label": "Radyoterapi",
+          "icon": "radiation",
+          "next": {
+            "node": "common.tedavi_araligi",
+            "params": { "treatment": "Radyoterapi", "okLabel": "3 ay veya daha fazla gecti", "noLabel": "3 aydan az gecti", "rejectReason": "Radyoterapi sonrasi yanit degerlendirmesi icin en az 3 ay beklenmelidir." }
+          }
+        },
+        {
+          "id": "hedef",
+          "label": "Hedefe yonelik tedavi (akilli ilac)",
+          "icon": "target",
+          "next": {
+            "node": "common.tedavi_araligi",
+            "params": { "treatment": "Hedefe yonelik tedavi", "okLabel": "3 ay veya daha fazla gecti", "noLabel": "3 aydan az gecti", "rejectReason": "Hedefe yonelik tedavi sonrasi yanit degerlendirmesi icin en az 3 ay beklenmelidir." }
+          }
+        },
+        {
+          "id": "radyonuklid",
+          "label": "Radyonuklid tedavi",
+          "icon": "atom",
+          "next": {
+            "node": "common.tedavi_araligi",
+            "params": { "treatment": "Radyonuklid tedavi", "okLabel": "1 ay veya daha fazla gecti", "noLabel": "1 aydan az gecti", "rejectReason": "Radyonuklid tedavi sonrasi yanit degerlendirmesi icin en az 1 ay beklenmelidir." }
+          }
+        }
+      ]
+    },
+    {
+      "id": "fdg_yanit_kemo",
+      "question": "Kemoterapi sonrasi sure ve protokol durumu?",
+      "options": [
+        {
+          "id": "uygun",
+          "label": "Sure uygun (>= 15 gun) VE protokol degisikligi var",
+          "icon": "clock",
+          "outcome": { "status": "covered", "indication": "Tedaviye yanitin degerlendirilmesi", "sutRefs": ["sut-2.4.4.I"] }
+        },
+        {
+          "id": "protokol-ayni",
+          "label": "Sure uygun (>= 15 gun) FAKAT protokol degismedi",
+          "icon": "reject",
+          "tone": "danger",
+          "outcome": { "status": "not-covered", "reason": "Kemoterapi protokolu degismediyse rutin yanit degerlendirmesi amacli PET/BT odenmez.", "sutRefs": ["sut-2.4.4.I"] }
+        },
+        {
+          "id": "sure-kisa",
+          "label": "Sure uygun degil (< 15 gun)",
+          "icon": "reject",
+          "tone": "danger",
+          "outcome": { "status": "not-covered", "reason": "Kemoterapi sonrasi en az 15 gun beklenmelidir.", "sutRefs": ["sut-2.4.4.I"] }
+        }
+      ]
+    },
+
+    {
+      "id": "psma_amac",
+      "question": "Ga-68 PSMA PET/BT uygulama amaci?",
+      "options": [
+        {
+          "id": "tani",
+          "label": "Tani (2. biyopsi yerinin belirlenmesi)",
+          "note": "PSA > 4 ng/mL, PI-RADS > 3 ve rektal nodul mevcut; 1. biyopsi negatif, 2. biyopsi planlaniyor.",
+          "icon": "search",
+          "next": { "node": "common.merkez_3basamak", "params": { "subject": "Tani/biyopsi amacli PSMA PET/BT", "indication": "Tani (biyopsi lokasyonunun belirlenmesi)" } }
+        },
+        {
+          "id": "evreleme",
+          "label": "Baslangic evreleme",
+          "note": "Gleason skoru > 7 veya PSA > 10 ng/mL.",
+          "icon": "layers",
+          "next": { "node": "common.merkez_3basamak", "params": { "subject": "Evreleme amacli PSMA PET/BT", "indication": "Baslangic evreleme" } }
+        },
+        {
+          "id": "nuks",
+          "label": "Yeniden evreleme (biyokimyasal nuks)",
+          "note": "Tedavi sonrasi PSA yuksekligi.",
+          "icon": "refresh",
+          "next": { "node": "common.merkez_3basamak", "params": { "subject": "Nuks degerlendirmesi amacli PSMA PET/BT", "indication": "Yeniden evreleme (biyokimyasal nuks)" } }
+        },
+        {
+          "id": "tedavi",
+          "label": "Radyonuklid tedavi planlamasi / yanit degerlendirmesi",
+          "note": "PSMA hedefli tedaviye uygunluk veya tedavi sonrasi yanit.",
+          "icon": "atom",
+          "next": { "node": "psma_tedavi_merkez", "params": { "indication": "Radyonuklid tedavi planlamasi / yanit" } }
+        }
+      ]
+    },
+    {
+      "id": "psma_tedavi_merkez",
+      "parametric": true,
+      "params": ["indication"],
+      "question": "Islemin yapilacagi merkez ve unite durumu?",
+      "hint": "Radyonuklid tedavi planlamasinda, yatakli tedavi unitesi bulunan ozel hastaneler de fatura edebilir.",
+      "options": [
+        {
+          "id": "tedavi-unitesi",
+          "label": "Yatakli radyonuklid tedavi unitesi olan hastane (kamu veya ozel)",
+          "icon": "atom",
+          "setsFacility": "radionuclide-therapy-unit",
+          "outcome": { "status": "covered", "indication": "{params.indication}", "sutRefs": ["sut-2.4.4.I"] }
+        },
+        {
+          "id": "ucuncu-basamak",
+          "label": "3. Basamak Resmi Saglik Kurumu",
+          "icon": "hospital",
+          "setsFacility": "tertiary-public",
+          "outcome": { "status": "covered", "indication": "{params.indication}", "sutRefs": ["sut-2.4.4.I"] }
+        },
+        {
+          "id": "uygun-degil",
+          "label": "Tedavi unitesi OLMAYAN 2. basamak veya ozel hastane",
+          "icon": "hospital-x",
+          "tone": "danger",
+          "setsFacility": "secondary-or-private",
+          "outcome": { "status": "not-covered", "reason": "Radyonuklid tedavi planlamasi ve yanit degerlendirmesi icin 3. Basamak Resmi Saglik Kurumu VEYA yatakli radyonuklid tedavi unitesine sahip olmak sarttir.", "sutRefs": ["sut-2.4.4.I"] }
+        }
+      ]
+    },
+
+    {
+      "id": "dota_durum",
+      "question": "Noroendokrin tumor (NET) durumu?",
+      "options": [
+        {
+          "id": "tanili",
+          "label": "Tanili NET / medüller tiroid karsinomu",
+          "icon": "check",
+          "next": { "node": "common.merkez_3basamak", "params": { "subject": "DOTATATE PET/BT", "indication": "Evreleme / yeniden evreleme" } }
+        },
+        {
+          "id": "supheli-odak",
+          "label": "Goruntuleme ile bulunamayan supheli odak",
+          "icon": "search",
+          "next": { "node": "common.merkez_3basamak", "params": { "subject": "DOTATATE PET/BT", "indication": "Tani (primer odak arastirmasi)" } }
+        }
+      ]
+    },
+
+    {
+      "id": "kolin_durum",
+      "question": "Hiperparatiroidi tanisi ve onceki tetkik durumu?",
+      "options": [
+        {
+          "id": "uygun",
+          "label": "USG normal/supheli VE Tc-99m MIBI SPECT negatif",
+          "icon": "check",
+          "outcome": { "status": "covered", "indication": "Tani (paratiroid adenomu tespiti)", "sutRefs": ["sut-2.4.4.I"] }
+        },
+        {
+          "id": "uygun-degil",
+          "label": "MIBI sintigrafisi yapilmadi veya lezyonu lokalize etti",
+          "icon": "reject",
+          "tone": "danger",
+          "outcome": { "status": "not-covered", "reason": "SUT geregi once Tc-99m MIBI sintigrafisi yapilmali ve lokalizasyon saglanamamis olmalidir.", "sutRefs": ["sut-2.4.4.I"] }
+        }
+      ]
+    },
+
+    {
+      "id": "naf_durum",
+      "question": "Kemik PET (F-18 NaF) sartlari saglaniyor mu?",
+      "options": [
+        {
+          "id": "uygun",
+          "label": "Kesin onkolojik tani + supheli kemik sintigrafisi + 3 hekimli saglik kurulu raporu",
+          "note": "Rapor universite veya egitim-arastirma hastanesinden duzenlenmis olmalidir.",
+          "icon": "doc",
+          "outcome": { "status": "covered", "indication": "Tani (kemik metastazi degerlendirmesi)", "sutRefs": ["sut-2.4.4.I"] }
+        },
+        {
+          "id": "uygun-degil",
+          "label": "Rapor eksik veya kesin onkolojik tani yok",
+          "icon": "reject",
+          "tone": "danger",
+          "outcome": { "status": "not-covered", "reason": "Kesin onkolojik tani, supheli kemik sintigrafisi ve universite/egitim-arastirma hastanesinden 3 hekimli rapor sarttir.", "sutRefs": ["sut-2.4.4.I"] }
+        }
+      ]
+    },
+
+    {
+      "id": "beyin_endikasyon",
+      "question": "Beyin PET endikasyonu?",
+      "options": [
+        {
+          "id": "epilepsi",
+          "label": "Dirençli epilepsi (cerrahi planlanan)",
+          "icon": "activity",
+          "next": { "node": "common.merkez_3basamak", "params": { "subject": "Epilepsi endikasyonlu beyin PET/BT", "indication": "Dirençli epilepsi odaginin belirlenmesi" } }
+        },
+        { "id": "demans", "label": "Alzheimer / demans ayirici tanisi", "icon": "search", "next": "beyin_demans_rapor" }
+      ]
+    },
+    {
+      "id": "beyin_demans_rapor",
+      "question": "Saglik kurulu raporu ve kurum durumu?",
+      "options": [
+        {
+          "id": "uygun",
+          "label": "3. Basamak kurumda yapiliyor VE 3. basamak saglik kurulu raporu var",
+          "icon": "doc",
+          "setsFacility": "tertiary-public",
+          "outcome": { "status": "covered", "indication": "Tani (demans ayirici tanisi)", "sutRefs": ["sut-2.4.4.I"] }
+        },
+        {
+          "id": "uygun-degil",
+          "label": "Rapor yok veya islem 2. basamakta yapiliyor",
+          "icon": "reject",
+          "tone": "danger",
+          "setsFacility": "secondary-or-private",
+          "outcome": { "status": "not-covered", "reason": "Demans endikasyonunda 3. basamak saglik kurulu raporu ve islemin 3. basamakta yapilmasi zorunludur.", "sutRefs": ["sut-2.4.4.I"] }
+        }
+      ]
+    },
+
+    {
+      "id": "common.merkez_3basamak",
+      "parametric": true,
+      "params": ["subject", "indication"],
+      "question": "Islemin yapilacagi merkez basamagi?",
+      "options": [
+        {
+          "id": "ucuncu-basamak",
+          "label": "3. Basamak Resmi Saglik Kurumu",
+          "icon": "hospital",
+          "setsFacility": "tertiary-public",
+          "outcome": { "status": "covered", "indication": "{params.indication}", "sutRefs": ["sut-2.4.4.I"] }
+        },
+        {
+          "id": "ikinci-basamak",
+          "label": "2. Basamak veya ozel saglik kurumu",
+          "icon": "hospital-x",
+          "tone": "danger",
+          "setsFacility": "secondary-or-private",
+          "outcome": { "status": "not-covered", "reason": "{params.subject} yalnizca 3. Basamak Resmi Saglik Kurumlarinda fatura edilebilir.", "sutRefs": ["sut-2.4.4.I"] }
+        }
+      ]
+    },
+    {
+      "id": "common.tedavi_araligi",
+      "parametric": true,
+      "params": ["treatment", "okLabel", "noLabel", "rejectReason"],
+      "question": "{params.treatment} uzerinden ne kadar sure gecti?",
+      "options": [
+        {
+          "id": "sure-uygun",
+          "label": "{params.okLabel}",
+          "icon": "clock",
+          "outcome": { "status": "covered", "indication": "Tedaviye yanitin degerlendirilmesi", "sutRefs": ["sut-2.4.4.I"] }
+        },
+        {
+          "id": "sure-kisa",
+          "label": "{params.noLabel}",
+          "icon": "reject",
+          "tone": "danger",
+          "outcome": { "status": "not-covered", "reason": "{params.rejectReason}", "sutRefs": ["sut-2.4.4.I"] }
+        }
+      ]
+    }
+  ]
+}
