@@ -10,13 +10,15 @@
   },
   "scripts": {
     "build": "node scripts/build.mjs",
-    "validate": "node scripts/validate.mjs",
-    "test": "node --test \"test/*.test.mjs\"",
-    "fetch:sources": "node scripts/fetch-sources.mjs",
-    "check:updates": "node scripts/check-updates.mjs",
     "check:build": "node scripts/build.mjs --check",
-    "verify": "npm run validate && npm run test && npm run check:build",
-    "serve": "node scripts/serve.mjs"
+    "check:docs": "node scripts/gen-docs.mjs --check",
+    "check:updates": "node scripts/check-updates.mjs",
+    "docs": "node scripts/gen-docs.mjs",
+    "fetch:sources": "node scripts/fetch-sources.mjs",
+    "serve": "node scripts/serve.mjs",
+    "test": "node --test \"test/*.test.mjs\"",
+    "validate": "node scripts/validate.mjs",
+    "verify": "npm run validate && npm test && npm run check:build && npm run check:docs"
   },
   "devDependencies": {},
   "repository": {

@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Dogrula, test et, derlemeyi karsilastir
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # Uretim bagimliligi yok; npm ci'ye gerek duyulmuyor.
+      - name: Veri dogrulamasi
+        run: npm run validate
+
+      - name: Testler
+        run: npm test
+
+      # index.html uretilmis bir dosyadir. Kaynak degisip de derleme
+      # commit edilmediyse burada yakalanir.
+      - name: Derleme suruklemesi
+        run: npm run check:build
+
+      # docs/klinik-kurallar.md ve docs/icd-kodlari.md veriden uretilir.
+      - name: Belge suruklemesi
+        run: npm run check:docs
+
+      - name: Guncellik raporu
+        if: always()
+        run: node scripts/check-updates.mjs || true
