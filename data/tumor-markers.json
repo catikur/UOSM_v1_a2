@@ -1,0 +1,24 @@
+{
+  "$schema": "../schema/tumor-markers.schema.json",
+  "schemaVersion": 1,
+  "note": "ICD-10 kodundan tumor belirteci onerisi. Yeniden evreleme adiminda secenek metnini kisisellestirmek icin kullanilir. Ilk eslesen kayit kazanir; hicbiri eslesmezse 'default' kullanilir.",
+  "default": {
+    "markers": [],
+    "label": "Ilgili tumor belirtecinde artis"
+  },
+  "mappings": [
+    { "codes": ["C50"], "markers": ["CA 15-3", "CEA"], "label": "Tumor belirteci (CA 15-3 / CEA) artisi" },
+    { "codes": ["C16", "C18", "C19", "C20", "C21", "C25"], "markers": ["CEA", "CA 19-9"], "label": "Tumor belirteci (CEA / CA 19-9) artisi" },
+    { "codes": ["C22"], "markers": ["AFP"], "label": "Tumor belirteci (AFP) artisi" },
+    { "codes": ["C62"], "markers": ["AFP", "Beta-hCG", "LDH"], "label": "Tumor belirteci (AFP / Beta-hCG) artisi" },
+    { "codes": ["C56"], "markers": ["CA 125"], "label": "Tumor belirteci (CA 125) artisi" },
+    { "codes": ["C61"], "markers": ["PSA"], "label": "Tumor belirteci (PSA) artisi" },
+    { "codes": ["C73"], "markers": ["Tiroglobulin", "Kalsitonin"], "label": "Tumor belirteci (Tiroglobulin / Kalsitonin) artisi" },
+    { "codes": ["C7A", "C75", "D3A"], "markers": ["Kromogranin A"], "label": "Tumor belirteci (Kromogranin A) artisi" },
+    { "codes": ["C15"], "markers": ["CEA", "CA 19-9"], "label": "Tumor belirteci (CEA / CA 19-9) artisi" },
+    { "codes": ["C34"], "markers": ["CEA", "NSE", "CYFRA 21-1"], "label": "Tumor belirteci (CEA / NSE / CYFRA 21-1) artisi" }
+  ],
+  "tracerOverrides": [
+    { "tracer": "dota", "markers": ["Kromogranin A"], "label": "Tumor belirteci (Kromogranin A) artisi" }
+  ]
+}

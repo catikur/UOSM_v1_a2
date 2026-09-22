@@ -1,0 +1,40 @@
+{
+  "$schema": "../schema/quick-picks.schema.json",
+  "schemaVersion": 1,
+  "note": "ICD giris ekranindaki kisayol tuslari. Buradaki her kod, ilgili radyofarmasotigin kod kumesinde bulunmak zorundadir; scripts/validate.mjs bunu denetler (kaynak uygulamadaki 'tusa basinca reddediliyor' hatasi bu sekilde onlenir).",
+  "byTracer": {
+    "fdg": [
+      { "code": "C34", "label": "Akciger", "icon": "lung" },
+      { "code": "C50", "label": "Meme", "icon": "breast" },
+      { "code": "C18", "label": "Kolon", "icon": "colon" },
+      { "code": "C81", "label": "Lenfoma", "icon": "blood" },
+      { "code": "C43", "label": "Melanom", "icon": "skin" },
+      { "code": "C15", "label": "Ozofagus", "icon": "gi" },
+      { "code": "C56", "label": "Over", "icon": "gyn" },
+      { "code": "C80", "label": "Primeri bilinmeyen", "icon": "unknown" }
+    ],
+    "psma": [
+      { "code": "C61", "label": "Prostat", "icon": "prostate" },
+      { "code": "R97.2", "label": "PSA yuksekligi", "icon": "lab" },
+      { "code": "Z03", "label": "Suphe / gozlem", "icon": "search" }
+    ],
+    "dota": [
+      { "code": "C7A", "label": "NET", "icon": "net" },
+      { "code": "C75", "label": "Endokrin TM", "icon": "endocrine" },
+      { "code": "C25", "label": "Pankreas", "icon": "gi" },
+      { "code": "C73", "label": "Meduller tiroid", "icon": "endocrine" }
+    ],
+    "choline": [
+      { "code": "E21.0", "label": "Primer hiperparatiroidi", "icon": "endocrine" }
+    ],
+    "naf": [
+      { "code": "C61", "label": "Prostat", "icon": "prostate" },
+      { "code": "C50", "label": "Meme", "icon": "breast" },
+      { "code": "C34", "label": "Akciger", "icon": "lung" }
+    ],
+    "brain": [
+      { "code": "G30", "label": "Alzheimer", "icon": "brain" },
+      { "code": "G40", "label": "Epilepsi", "icon": "bolt" }
+    ]
+  }
+}

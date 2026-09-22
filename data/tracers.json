@@ -1,0 +1,122 @@
+{
+  "$schema": "../schema/tracers.schema.json",
+  "schemaVersion": 1,
+  "note": "Radyofarmasotik kayitlari. Yeni bir tetkik eklemek icin buraya bir kayit, data/rules.json icine de ilgili dugumler eklenir; kod degisikligi gerekmez.",
+  "tracers": [
+    {
+      "id": "fdg",
+      "label": "F-18 FDG",
+      "sutCode": "801.440",
+      "icon": "tracer-fdg",
+      "order": 10,
+      "covered": true,
+      "codeSet": "tablo-1",
+      "entryNode": "fdg_amac",
+      "askIcd": true,
+      "icdPrompt": "Onkolojik tani ICD-10 kodunu girin",
+      "summary": "Onkolojik tani, evreleme, yeniden evreleme ve tedavi yaniti degerlendirmesinde kullanilan standart PET/BT tetkiki."
+    },
+    {
+      "id": "psma",
+      "label": "Ga-68 PSMA",
+      "sutCode": "801.365",
+      "icon": "tracer-psma",
+      "order": 20,
+      "covered": true,
+      "codeSet": "psma-tanilar",
+      "entryNode": "psma_amac",
+      "askIcd": true,
+      "icdPrompt": "Prostat tanisina ait ICD-10 kodunu girin",
+      "summary": "Prostat kanserinde tani, evreleme, biyokimyasal nuks ve radyonuklid tedavi planlamasinda kullanilir."
+    },
+    {
+      "id": "dota",
+      "label": "Ga-68 DOTATATE",
+      "sutCode": null,
+      "icon": "tracer-dota",
+      "order": 30,
+      "covered": true,
+      "codeSet": "net-tanilar",
+      "entryNode": "dota_durum",
+      "askIcd": true,
+      "icdPrompt": "Noroendokrin tumor ICD-10 kodunu girin",
+      "summary": "Somatostatin reseptoru eksprese eden noroendokrin tumorlerde tani ve evreleme."
+    },
+    {
+      "id": "choline",
+      "label": "F-18 Kolin",
+      "sutCode": null,
+      "icon": "tracer-choline",
+      "order": 40,
+      "covered": true,
+      "codeSet": "kolin-tanilar",
+      "entryNode": "kolin_durum",
+      "askIcd": true,
+      "icdPrompt": "Hiperparatiroidi ICD-10 kodunu girin",
+      "summary": "Primer hiperparatiroidide, MIBI sintigrafisi lokalize edemediginde paratiroid adenomu arastirmasi."
+    },
+    {
+      "id": "naf",
+      "label": "F-18 NaF (Kemik PET)",
+      "sutCode": null,
+      "icon": "tracer-bone",
+      "order": 50,
+      "covered": true,
+      "codeSet": "naf-onkolojik",
+      "entryNode": "naf_durum",
+      "askIcd": true,
+      "icdPrompt": "Onkolojik tani ICD-10 kodunu girin",
+      "summary": "Kemik metastazi degerlendirmesinde, kemik sintigrafisi supheli kaldiginda."
+    },
+    {
+      "id": "brain",
+      "label": "Beyin F-18 FDG",
+      "sutCode": null,
+      "icon": "tracer-brain",
+      "order": 60,
+      "covered": true,
+      "codeSet": "beyin-tanilar",
+      "entryNode": "beyin_endikasyon",
+      "askIcd": true,
+      "icdPrompt": "Norolojik tani ICD-10 kodunu girin",
+      "summary": "Dirençli epilepside cerrahi oncesi odak belirleme ve demans ayirici tanisi."
+    },
+    {
+      "id": "fapi",
+      "label": "FAPI PET/BT",
+      "sutCode": null,
+      "icon": "tracer-fapi",
+      "order": 70,
+      "covered": false,
+      "codeSet": null,
+      "entryNode": null,
+      "askIcd": false,
+      "summary": "Fibroblast aktivasyon proteini hedefli PET/BT.",
+      "notCoveredOutcome": {
+        "status": "not-covered",
+        "reason": "FAPI PET/BT, SUT geri odeme kapsaminda tanimli bir tetkik degildir.",
+        "sutRefs": ["sut-2.4.4.I"]
+      }
+    }
+  ],
+  "facilityLevels": [
+    {
+      "id": "tertiary-public",
+      "label": "3. Basamak Resmi Saglik Kurumu",
+      "shortLabel": "3. Basamak Resmi",
+      "icon": "hospital"
+    },
+    {
+      "id": "radionuclide-therapy-unit",
+      "label": "Yatakli Radyonuklid Tedavi Unitesi bulunan hastane (kamu veya ozel)",
+      "shortLabel": "Radyonuklid Tedavi Unitesi",
+      "icon": "atom"
+    },
+    {
+      "id": "secondary-or-private",
+      "label": "2. Basamak veya ozel saglik kurumu",
+      "shortLabel": "2. Basamak / Ozel",
+      "icon": "hospital-x"
+    }
+  ]
+}

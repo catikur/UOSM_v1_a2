@@ -1,0 +1,82 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "meta.schema.json",
+  "title": "Uygulama ve mevzuat ust verisi",
+  "type": "object",
+  "required": ["schemaVersion", "dataVersion", "app", "regulation", "disclaimer"],
+  "properties": {
+    "schemaVersion": { "type": "number", "minimum": 1 },
+    "dataVersion": { "type": "string", "pattern": "^[0-9]{4}\\.[0-9]{2}\\.[0-9]{2}\\+[0-9]+$" },
+    "app": {
+      "type": "object",
+      "required": ["title", "shortTitle", "description", "author", "locale", "themeColor"],
+      "additionalProperties": false,
+      "properties": {
+        "title": { "type": "string" },
+        "shortTitle": { "type": "string" },
+        "description": { "type": "string" },
+        "author": { "type": "string" },
+        "locale": { "type": "string" },
+        "themeColor": { "type": "string", "pattern": "^#[0-9a-fA-F]{6}$" }
+      }
+    },
+    "regulation": {
+      "type": "object",
+      "required": ["name", "trackedRevision", "relevantSections"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string" },
+        "baseTebligDate": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+        "baseTebligGazette": { "type": "string" },
+        "trackedRevision": {
+          "type": "object",
+          "required": ["label", "effectiveDate"],
+          "additionalProperties": false,
+          "properties": {
+            "label": { "type": "string" },
+            "effectiveDate": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+            "gazetteNumber": { "type": "string" },
+            "note": { "type": "string" }
+          }
+        },
+        "relevantSections": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["id", "label"],
+            "additionalProperties": false,
+            "properties": { "id": { "type": "string" }, "label": { "type": "string" }, "note": { "type": "string" } }
+          }
+        }
+      }
+    },
+    "disclaimer": {
+      "type": "object",
+      "required": ["short", "long"],
+      "additionalProperties": false,
+      "properties": { "short": { "type": "string" }, "long": { "type": "string" } }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "lastClinicalReview": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+        "reviewIntervalDays": { "type": "number", "minimum": 1 },
+        "maintainers": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "runtime": {
+      "type": "object",
+      "required": ["bundleUrl", "autoRefresh"],
+      "additionalProperties": false,
+      "properties": {
+        "bundleUrl": { "type": "string" },
+        "autoRefresh": { "type": "boolean" },
+        "refreshOnFocus": { "type": "boolean" },
+        "refreshIntervalMinutes": { "type": "number", "minimum": 0 },
+        "note": { "type": "string" }
+      }
+    }
+  }
+}

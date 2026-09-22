@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "code-sets.schema.json",
+  "title": "ICD-10 kod kumeleri",
+  "type": "object",
+  "required": ["schemaVersion", "sets"],
+  "properties": {
+    "schemaVersion": { "type": "number", "minimum": 1 },
+    "note": { "type": "string" },
+    "statusMeanings": { "type": "object", "patternProperties": { "^.*$": { "type": "string" } } },
+    "sets": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "label", "enforcement", "codes"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+          "label": { "type": "string" },
+          "sutRef": { "type": "string" },
+          "extends": { "type": "array", "items": { "type": "string" } },
+          "enforcement": { "type": "string", "enum": ["block", "warn"] },
+          "rejectionMessage": { "type": "string" },
+          "warningMessage": { "type": "string" },
+          "codes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["code", "label"],
+              "additionalProperties": false,
+              "properties": {
+                "code": { "type": "string", "pattern": "^[A-Z][0-9][0-9A-Z](\\.[0-9A-Z]{1,4})?$" },
+                "label": { "type": "string" },
+                "group": { "type": "string" },
+                "status": { "type": "string", "enum": ["active", "needs-review", "proposed"] },
+                "reviewNote": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

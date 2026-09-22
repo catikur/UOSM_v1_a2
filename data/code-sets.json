@@ -1,0 +1,521 @@
+{
+  "$schema": "../schema/code-sets.schema.json",
+  "schemaVersion": 1,
+  "note": "ICD-10 kod kumeleri. Eslestirme 'prefix' mantigiyla yapilir: girilen kod, kume icindeki bir kodla basliyorsa eslesir (C349 -> C34). 'extends' ile kume birlesimi kurulur, boylece ayni kod listesi tekrarlanmaz. status=active disindaki kodlar kabul edilir fakat sonucta uyari gosterilir.",
+  "statusMeanings": {
+    "active": "SUT metninden dogrulanmis, sorunsuz kullanilir.",
+    "needs-review": "Kaynak veride bulundu fakat dogrulanamadi; kabul edilir, sonucta uyari cikar.",
+    "proposed": "Ekip tarafindan eklenmesi onerildi; kabul edilir, sonucta uyari cikar."
+  },
+  "sets": [
+    {
+      "id": "tablo-1",
+      "label": "SUT EK-2/B Tablo-1 - FDG PET/BT onkolojik tani listesi",
+      "sutRef": "sut-ek-2b-tablo-1",
+      "enforcement": "block",
+      "rejectionMessage": "Girilen {code} kodu SUT Tablo-1 listesinde yer almiyor; F-18 FDG PET/BT bu tani ile odenmez.",
+      "codes": [
+        {
+          "code": "C00",
+          "label": "Dudak malign neoplazmi",
+          "group": "Bas-boyun"
+        },
+        {
+          "code": "C01",
+          "label": "Dil kokunun malign neoplazmi",
+          "group": "Bas-boyun"
+        },
+        {
+          "code": "C02",
+          "label": "Dilin diger ve tanimlanmamis kisimlari",
+          "group": "Bas-boyun"
+        },
+        {
+          "code": "C03",
+          "label": "Dis eti malign neoplazmi",
+          "group": "Bas-boyun"
+        },
+        {
+          "code": "C04",
+          "label": "Agiz tabani malign neoplazmi",
+          "group": "Bas-boyun"
+        },
+        {
+          "code": "C05",
+          "label": "Damak malign neoplazmi",
+          "group": "Bas-boyun"
+        },
+        {
+          "code": "C06",
+          "label": "Agzin diger ve tanimlanmamis kisimlari",
+          "group": "Bas-boyun"
+        },
+        {
+          "code": "C07",
+          "label": "Parotis bezi malign neoplazmi",
+          "group": "Bas-boyun"
+        },
+        {
+          "code": "C08",
+          "label": "Diger majör tukuruk bezleri malign neoplazmi",
+          "group": "Bas-boyun"
+        },
+        {
+          "code": "C09",
+          "label": "Tonsil malign neoplazmi",
+          "group": "Bas-boyun"
+        },
+        {
+          "code": "C10",
+          "label": "Orofarenks malign neoplazmi",
+          "group": "Bas-boyun"
+        },
+        {
+          "code": "C11",
+          "label": "Nazofarenks malign neoplazmi",
+          "group": "Bas-boyun"
+        },
+        {
+          "code": "C12",
+          "label": "Piriform sinus malign neoplazmi",
+          "group": "Bas-boyun"
+        },
+        {
+          "code": "C13",
+          "label": "Hipofarenks malign neoplazmi",
+          "group": "Bas-boyun"
+        },
+        {
+          "code": "C14",
+          "label": "Dudak, agiz ve farenkste diger bolgeler",
+          "group": "Bas-boyun"
+        },
+        {
+          "code": "C15",
+          "label": "Ozofagus malign neoplazmi",
+          "group": "Gastrointestinal"
+        },
+        {
+          "code": "C16",
+          "label": "Mide malign neoplazmi",
+          "group": "Gastrointestinal"
+        },
+        {
+          "code": "C17",
+          "label": "Ince barsak malign neoplazmi",
+          "group": "Gastrointestinal"
+        },
+        {
+          "code": "C18",
+          "label": "Kolon malign neoplazmi",
+          "group": "Gastrointestinal"
+        },
+        {
+          "code": "C19",
+          "label": "Rektosigmoid bileske malign neoplazmi",
+          "group": "Gastrointestinal"
+        },
+        {
+          "code": "C20",
+          "label": "Rektum malign neoplazmi",
+          "group": "Gastrointestinal"
+        },
+        {
+          "code": "C21",
+          "label": "Anus ve anal kanal malign neoplazmi",
+          "group": "Gastrointestinal"
+        },
+        {
+          "code": "C22",
+          "label": "Karaciger ve intrahepatik safra yollari",
+          "group": "Hepatobiliyer"
+        },
+        {
+          "code": "C23",
+          "label": "Safra kesesi malign neoplazmi",
+          "group": "Hepatobiliyer"
+        },
+        {
+          "code": "C24",
+          "label": "Diger ve tanimlanmamis safra yollari",
+          "group": "Hepatobiliyer"
+        },
+        {
+          "code": "C25",
+          "label": "Pankreas malign neoplazmi",
+          "group": "Hepatobiliyer"
+        },
+        {
+          "code": "C26",
+          "label": "Sindirim organlarinda diger/iyi tanimlanmamis bolgeler",
+          "group": "Gastrointestinal"
+        },
+        {
+          "code": "C32",
+          "label": "Larenks malign neoplazmi",
+          "group": "Bas-boyun"
+        },
+        {
+          "code": "C34",
+          "label": "Brons ve akciger malign neoplazmi",
+          "group": "Toraks"
+        },
+        {
+          "code": "C37",
+          "label": "Timus malign neoplazmi",
+          "group": "Toraks"
+        },
+        {
+          "code": "C38",
+          "label": "Kalp, mediasten ve plevra malign neoplazmi",
+          "group": "Toraks"
+        },
+        {
+          "code": "C40",
+          "label": "Ekstremite kemik ve eklem kikirdagi",
+          "group": "Kemik-yumusak doku"
+        },
+        {
+          "code": "C41",
+          "label": "Diger bolge kemik ve eklem kikirdagi",
+          "group": "Kemik-yumusak doku"
+        },
+        {
+          "code": "C43",
+          "label": "Derinin malign melanomu",
+          "group": "Deri"
+        },
+        {
+          "code": "C45",
+          "label": "Mezotelyoma",
+          "group": "Toraks"
+        },
+        {
+          "code": "C49",
+          "label": "Diger bag ve yumusak doku malign neoplazmi",
+          "group": "Kemik-yumusak doku"
+        },
+        {
+          "code": "C50",
+          "label": "Meme malign neoplazmi",
+          "group": "Meme"
+        },
+        {
+          "code": "C51",
+          "label": "Vulva malign neoplazmi",
+          "group": "Jinekolojik"
+        },
+        {
+          "code": "C52",
+          "label": "Vajina malign neoplazmi",
+          "group": "Jinekolojik"
+        },
+        {
+          "code": "C53",
+          "label": "Serviks uteri malign neoplazmi",
+          "group": "Jinekolojik"
+        },
+        {
+          "code": "C54",
+          "label": "Korpus uteri malign neoplazmi",
+          "group": "Jinekolojik"
+        },
+        {
+          "code": "C55",
+          "label": "Uterus malign neoplazmi, kisim belirtilmemis",
+          "group": "Jinekolojik"
+        },
+        {
+          "code": "C56",
+          "label": "Over malign neoplazmi",
+          "group": "Jinekolojik"
+        },
+        {
+          "code": "C60",
+          "label": "Penis malign neoplazmi",
+          "group": "Uroonkoloji"
+        },
+        {
+          "code": "C62",
+          "label": "Testis malign neoplazmi",
+          "group": "Uroonkoloji"
+        },
+        {
+          "code": "C64",
+          "label": "Bobrek malign neoplazmi (renal pelvis haric)",
+          "group": "Uroonkoloji"
+        },
+        {
+          "code": "C65",
+          "label": "Renal pelvis malign neoplazmi",
+          "group": "Uroonkoloji"
+        },
+        {
+          "code": "C66",
+          "label": "Ureter malign neoplazmi",
+          "group": "Uroonkoloji"
+        },
+        {
+          "code": "C67",
+          "label": "Mesane malign neoplazmi",
+          "group": "Uroonkoloji"
+        },
+        {
+          "code": "C71",
+          "label": "Beyin malign neoplazmi",
+          "group": "Noroonkoloji"
+        },
+        {
+          "code": "C73",
+          "label": "Tiroid bezi malign neoplazmi",
+          "group": "Endokrin"
+        },
+        {
+          "code": "C74",
+          "label": "Adrenal (surrenal) bez malign neoplazmi",
+          "group": "Endokrin"
+        },
+        {
+          "code": "C80",
+          "label": "Primer bolgesi bilinmeyen malign neoplazm",
+          "group": "Diger"
+        },
+        {
+          "code": "C81",
+          "label": "Hodgkin lenfoma",
+          "group": "Hematoloji"
+        },
+        {
+          "code": "C82",
+          "label": "Folikuler lenfoma",
+          "group": "Hematoloji"
+        },
+        {
+          "code": "C83",
+          "label": "Non-folikuler lenfoma",
+          "group": "Hematoloji"
+        },
+        {
+          "code": "C84",
+          "label": "Matur T/NK hucreli lenfomalar",
+          "group": "Hematoloji"
+        },
+        {
+          "code": "C85",
+          "label": "Non-Hodgkin lenfoma, diger ve tanimlanmamis tipler",
+          "group": "Hematoloji"
+        },
+        {
+          "code": "C90",
+          "label": "Multipl myelom ve malign plazma hucreli neoplazmlar",
+          "group": "Hematoloji"
+        },
+        {
+          "code": "D48",
+          "label": "Diger/tanimlanmamis bolgelerin belirsiz davranisli neoplazmi",
+          "group": "Diger"
+        },
+        {
+          "code": "M95",
+          "label": "(Dogrulanmamis) ICD-10'da M95 kas-iskelet sistemi deformitesi kodudur",
+          "group": "Dogrulanmali",
+          "status": "needs-review",
+          "reviewNote": "Kaynak uygulamanin kod listesinde yer aliyordu fakat M95 onkolojik bir kod degil. Muhtemelen veri giris hatasi (C95/C96 olabilir). SUT Tablo-1 metniyle karsilastirilip ya duzeltilmeli ya da cikarilmalidir. Bkz. docs/duzeltmeler.md#acik-konular"
+        }
+      ]
+    },
+    {
+      "id": "naf-onkolojik",
+      "label": "F-18 NaF kemik PET/BT icin gecerli onkolojik tanilar",
+      "sutRef": "sut-2.4.4.I",
+      "extends": [
+        "tablo-1"
+      ],
+      "enforcement": "block",
+      "rejectionMessage": "Girilen {code} kodu kemik PET/BT icin gecerli bir onkolojik tani olarak tanimli degil.",
+      "codes": [
+        {
+          "code": "C61",
+          "label": "Prostat malign neoplazmi",
+          "group": "Uroonkoloji",
+          "status": "proposed",
+          "reviewNote": "Kaynak uygulamada kemik PET hizli secim tuslari C61 sunuyordu fakat dogrulama listesinde C61 yoktu; tusa basan kullanici her zaman 'odenmez' aliyordu. Kemik metastazi degerlendirmesinde prostat kanseri en sik endikasyon oldugu icin kume burada genisletildi. Bkz. docs/duzeltmeler.md#h-02"
+        }
+      ]
+    },
+    {
+      "id": "psma-tanilar",
+      "label": "Ga-68 PSMA PET/BT icin gecerli ICD-10 kodlari",
+      "sutRef": "sut-2.4.4.I",
+      "enforcement": "block",
+      "rejectionMessage": "PSMA PET/BT prostat kanseri (C61) veya kuvvetli prostat kanseri suphesi bildiren kodlarla odenir. Girilen kod: {code}.",
+      "codes": [
+        {
+          "code": "C61",
+          "label": "Prostat malign neoplazmi",
+          "group": "Uroonkoloji"
+        },
+        {
+          "code": "D40",
+          "label": "Erkek genital organlarin belirsiz davranisli neoplazmi",
+          "group": "Uroonkoloji"
+        },
+        {
+          "code": "Z03",
+          "label": "Suphelenilen hastalik icin gozlem ve degerlendirme",
+          "group": "Suphe"
+        },
+        {
+          "code": "R97",
+          "label": "Anormal tumor belirtecleri (R97.2: yukselmis PSA duzeyi)",
+          "group": "Suphe",
+          "status": "proposed",
+          "reviewNote": "Kaynak uygulama 'PSA Yuksekligi' kisayolunu R39.1 koduna baglamisti; R39.1 idrar yapma guclugu kodudur. Yukselmis PSA'nin ICD-10 karsiligi R97.2'dir. Bkz. docs/duzeltmeler.md#h-03"
+        },
+        {
+          "code": "R39",
+          "label": "Idrar sistemi ile ilgili diger belirti ve bulgular",
+          "group": "Suphe",
+          "status": "needs-review",
+          "reviewNote": "Kaynak uygulamadan geriye donuk uyumluluk icin korundu. Klinik olarak PSA yuksekligini karsilamaz; R97.2 tercih edilmelidir."
+        }
+      ]
+    },
+    {
+      "id": "kolin-tanilar",
+      "label": "F-18 Kolin PET/BT - primer hiperparatiroidi",
+      "sutRef": "sut-2.4.4.I",
+      "enforcement": "block",
+      "rejectionMessage": "Kolin PET/BT bu uygulamada primer hiperparatiroidi (E21.x) endikasyonu icin tanimlidir. Girilen kod: {code}.",
+      "codes": [
+        {
+          "code": "E21",
+          "label": "Hiperparatiroidizm ve paratiroid bezinin diger bozukluklari",
+          "group": "Endokrin"
+        }
+      ]
+    },
+    {
+      "id": "net-tanilar",
+      "label": "Ga-68 DOTATATE PET/BT - noroendokrin tumor tanilari",
+      "sutRef": "sut-2.4.4.I",
+      "enforcement": "warn",
+      "warningMessage": "Girilen {code} kodu noroendokrin tumor kod kumesinde yer almiyor. Islem engellenmedi, ancak SUT metni ve kurum uygulamasi ile dogrulayiniz.",
+      "codes": [
+        {
+          "code": "C7A",
+          "label": "Malign noroendokrin tumorler",
+          "group": "NET"
+        },
+        {
+          "code": "C75",
+          "label": "Diger endokrin bezler ve ilgili yapilar",
+          "group": "NET"
+        },
+        {
+          "code": "C73",
+          "label": "Tiroid bezi malign neoplazmi (medüller tiroid ca dahil)",
+          "group": "NET"
+        },
+        {
+          "code": "C74",
+          "label": "Adrenal bez malign neoplazmi",
+          "group": "NET"
+        },
+        {
+          "code": "C25",
+          "label": "Pankreas malign neoplazmi (endokrin pankreas dahil)",
+          "group": "NET"
+        },
+        {
+          "code": "C17",
+          "label": "Ince barsak malign neoplazmi",
+          "group": "NET"
+        },
+        {
+          "code": "C18",
+          "label": "Kolon malign neoplazmi",
+          "group": "NET"
+        },
+        {
+          "code": "C16",
+          "label": "Mide malign neoplazmi",
+          "group": "NET"
+        },
+        {
+          "code": "C34",
+          "label": "Brons ve akciger malign neoplazmi (bronsial karsinoid)",
+          "group": "NET"
+        },
+        {
+          "code": "C37",
+          "label": "Timus malign neoplazmi (timik karsinoid)",
+          "group": "NET"
+        },
+        {
+          "code": "C80",
+          "label": "Primer bolgesi bilinmeyen malign neoplazm",
+          "group": "NET"
+        },
+        {
+          "code": "D3A",
+          "label": "Benign noroendokrin tumorler",
+          "group": "NET",
+          "status": "proposed",
+          "reviewNote": "ICD-10-CM benign noroendokrin tumor kodu. Turkiye ICD-10 uygulamasinda karsiligi kurum bazinda degisebilir; SUT metniyle dogrulanmali."
+        },
+        {
+          "code": "E34.0",
+          "label": "Karsinoid sendrom",
+          "group": "NET",
+          "status": "proposed",
+          "reviewNote": "Karsinoid sendrom. DOTATATE endikasyonunda klinik olarak anlamli fakat SUT metninde acikca sayilip sayilmadigi dogrulanmali."
+        }
+      ]
+    },
+    {
+      "id": "beyin-tanilar",
+      "label": "Beyin F-18 FDG PET/BT - norolojik endikasyonlar",
+      "sutRef": "sut-2.4.4.I",
+      "enforcement": "warn",
+      "warningMessage": "Girilen {code} kodu beyin PET icin beklenen norolojik tani kumesinde degil. Islem engellenmedi, ancak endikasyonu dogrulayiniz.",
+      "codes": [
+        {
+          "code": "G30",
+          "label": "Alzheimer hastaligi",
+          "group": "Demans"
+        },
+        {
+          "code": "G31",
+          "label": "Sinir sisteminin diger dejeneratif hastaliklari",
+          "group": "Demans"
+        },
+        {
+          "code": "F00",
+          "label": "Alzheimer hastaliginda demans",
+          "group": "Demans"
+        },
+        {
+          "code": "F01",
+          "label": "Vaskuler demans",
+          "group": "Demans"
+        },
+        {
+          "code": "F03",
+          "label": "Tanimlanmamis demans",
+          "group": "Demans"
+        },
+        {
+          "code": "G40",
+          "label": "Epilepsi",
+          "group": "Epilepsi"
+        },
+        {
+          "code": "G41",
+          "label": "Status epileptikus",
+          "group": "Epilepsi"
+        }
+      ]
+    }
+  ]
+}

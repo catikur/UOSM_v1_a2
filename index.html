@@ -1,0 +1,1684 @@
+<!doctype html>
+<html lang="tr" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0f172a">
+  <meta name="description" content="SUT hukumlerine gore PET/BT tetkiklerinin SGK geri odeme uygunlugunu adim adim degerlendiren karar destek araci.">
+  <meta name="color-scheme" content="light dark">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="PET/BT SGK">
+  <meta name="generator" content="scripts/build.mjs">
+  <meta name="x-data-version" content="2024.04.30+1">
+  <meta name="x-generated-at" content="2026-09-21T21:31:22.797Z">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%232563eb%22%20stroke-width%3D%221.8%22%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%222.2%22%2F%3E%3Cellipse%20cx%3D%2212%22%20cy%3D%2212%22%20rx%3D%2210%22%20ry%3D%224.5%22%2F%3E%3Cellipse%20cx%3D%2212%22%20cy%3D%2212%22%20rx%3D%2210%22%20ry%3D%224.5%22%20transform%3D%22rotate(60%2012%2012)%22%2F%3E%3Cellipse%20cx%3D%2212%22%20cy%3D%2212%22%20rx%3D%2210%22%20ry%3D%224.5%22%20transform%3D%22rotate(120%2012%2012)%22%2F%3E%3C%2Fsvg%3E">
+  <title>PET/BT SGK Uygunluk Rehberi</title>
+  <style>/* ============================================================
+   PET/BT SGK Uygunluk Rehberi - stil katmani
+   Tailwind CDN yerine tasarim belirtecleri (design token) tabanli
+   el yazimi CSS. Uretimde CDN derleyici calistirmaya gerek kalmaz.
+   ============================================================ */
+
+:root {
+  color-scheme: light dark;
+
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  --bg: #f1f5f9;
+  --bg-gradient-a: #f8fafc;
+  --bg-gradient-b: #e2e8f0;
+  --surface: #ffffff;
+  --surface-muted: #f8fafc;
+  --surface-sunken: #f1f5f9;
+
+  --text: #0f172a;
+  /* Kucuk punto metin icin WCAG AA (4.5:1); tum acik yuzeylerde gecerli. */
+  --text-muted: #5f6f85;
+  /* Yalnizca dekoratif (izlenen yol ayraci); esik 3:1. */
+  --text-faint: #7e8da3;
+
+  --border: #cbd5e1;
+  --border-soft: #e2e8f0;
+
+  --accent: #2563eb;
+  --accent-strong: #1d4ed8;
+  --accent-soft: #dbeafe;
+  --accent-text: #1d4ed8;
+
+  --ok: #059669;
+  --ok-soft: #d1fae5;
+  --danger: #dc2626;
+  --danger-soft: #fee2e2;
+  --danger-border: #fca5a5;
+  --warn: #b45309;
+  --warn-soft: #fef3c7;
+  --warn-border: #fcd34d;
+
+  --radius-sm: 0.625rem;
+  --radius: 1rem;
+  --radius-lg: 1.5rem;
+
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.08);
+  --shadow-md: 0 6px 20px -6px rgba(15, 23, 42, 0.18);
+  --shadow-lg: 0 24px 48px -24px rgba(15, 23, 42, 0.35);
+
+  --ring: 0 0 0 4px rgba(37, 99, 235, 0.25);
+  --tap: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+:root[data-theme='dark'],
+html.dark {
+  --bg: #020617;
+  --bg-gradient-a: #0f172a;
+  --bg-gradient-b: #020617;
+  --surface: #0f172a;
+  --surface-muted: #1e293b;
+  --surface-sunken: #1e293b;
+
+  --text: #f1f5f9;
+  --text-muted: #94a3b8;
+  --text-faint: #94a3b8;
+
+  --border: #334155;
+  --border-soft: #1e293b;
+
+  --accent: #3b82f6;
+  --accent-strong: #60a5fa;
+  --accent-soft: #1e3a8a;
+  --accent-text: #93c5fd;
+
+  --ok: #34d399;
+  --ok-soft: #064e3b;
+  --danger: #f87171;
+  --danger-soft: #7f1d1d;
+  --danger-border: #b91c1c;
+  --warn: #fbbf24;
+  --warn-soft: #78350f;
+  --warn-border: #b45309;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 6px 20px -6px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 24px 48px -24px rgba(0, 0, 0, 0.8);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --bg: #020617;
+    --bg-gradient-a: #0f172a;
+    --bg-gradient-b: #020617;
+    --surface: #0f172a;
+    --surface-muted: #1e293b;
+    --surface-sunken: #1e293b;
+    --text: #f1f5f9;
+    --text-muted: #94a3b8;
+    --text-faint: #94a3b8;
+    --border: #334155;
+    --border-soft: #1e293b;
+    --accent: #3b82f6;
+    --accent-strong: #60a5fa;
+    --accent-soft: #1e3a8a;
+    --accent-text: #93c5fd;
+    --ok: #34d399;
+    --ok-soft: #064e3b;
+    --danger: #f87171;
+    --danger-soft: #7f1d1d;
+    --danger-border: #b91c1c;
+    --warn: #fbbf24;
+    --warn-soft: #78350f;
+    --warn-border: #b45309;
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+    --shadow-md: 0 6px 20px -6px rgba(0, 0, 0, 0.6);
+    --shadow-lg: 0 24px 48px -24px rgba(0, 0, 0, 0.8);
+  }
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  font-family: var(--font-sans);
+  color: var(--text);
+  background: linear-gradient(135deg, var(--bg-gradient-a) 0%, var(--bg-gradient-b) 100%);
+  background-attachment: fixed;
+  -webkit-tap-highlight-color: transparent;
+  line-height: 1.45;
+}
+
+:where(button, a, input, [tabindex]):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- Giris (splash) ekrani ---------- */
+
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  color: #e2e8f0;
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #0f172a 100%);
+  border: 0;
+  width: 100%;
+  font: inherit;
+  cursor: pointer;
+  transition: opacity 0.45s ease;
+}
+.splash[hidden] { display: none; }
+.splash.is-leaving { opacity: 0; pointer-events: none; }
+
+.splash__mark {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 8rem;
+  height: 8rem;
+}
+.splash__glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #3b82f6;
+  filter: blur(2.5rem);
+  opacity: 0.45;
+  animation: pulse 2.6s ease-in-out infinite;
+}
+.splash__icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  border-radius: 2rem;
+  color: #93c5fd;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 30px 10px rgba(59, 130, 246, 0.3);
+}
+
+.splash__title {
+  margin: 0;
+  font-size: clamp(2.25rem, 9vw, 3rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+.splash__title span { display: block; }
+.splash__title .accent { color: #60a5fa; }
+
+.splash__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #bfdbfe;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  animation: pulse 2.4s ease-in-out infinite;
+}
+
+.splash__footer {
+  position: absolute;
+  bottom: 1.5rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(191, 219, 254, 0.8);
+}
+
+/* ---------- Uygulama iskeleti ---------- */
+
+.app {
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: 0.75rem;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+.app[hidden] { display: none; }
+.app.is-entering { opacity: 0; }
+
+@media (min-width: 640px) { .app { padding: 1.5rem; gap: 1rem; } }
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+.topbar__brand { display: flex; align-items: center; gap: 0.75rem; min-width: 0; }
+.topbar__logo {
+  display: grid;
+  place-items: center;
+  width: 2.5rem; height: 2.5rem;
+  flex: none;
+  color: #fff;
+  background: var(--accent);
+  border-radius: 0.75rem;
+  box-shadow: var(--shadow-sm);
+}
+.topbar__titles { min-width: 0; }
+.topbar__title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.topbar__subtitle {
+  margin: 0.1rem 0 0;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.topbar__actions { display: flex; align-items: center; gap: 0.375rem; flex: none; }
+
+.icon-btn {
+  display: grid;
+  place-items: center;
+  width: 2.25rem; height: 2.25rem;
+  color: var(--text-muted);
+  background: var(--surface-muted);
+  border: 1px solid var(--border-soft);
+  border-radius: 0.625rem;
+  cursor: pointer;
+  transition: var(--tap);
+}
+.icon-btn:hover { color: var(--accent); border-color: var(--accent); }
+.icon-btn:active { transform: scale(0.94); }
+
+/* ---------- Izlenen yol ---------- */
+
+.trail {
+  padding: 0.625rem 0.75rem;
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+.trail[hidden] { display: none; }
+.trail__list {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding-bottom: 2px;
+  margin: 0;
+  list-style: none;
+  padding-inline-start: 0;
+}
+.trail__list::-webkit-scrollbar { display: none; }
+.trail__chip {
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--accent-text);
+  background: var(--accent-soft);
+  border: 1px solid transparent;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.trail__chip + .trail__chip::before {
+  content: '›';
+  margin: 0 0.5rem 0 -0.35rem;
+  color: var(--text-faint);
+  font-weight: 900;
+}
+
+/* ---------- Kart ---------- */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+.card__body { padding: 1.25rem; flex: 1; }
+@media (min-width: 640px) { .card__body { padding: 1.75rem; } }
+
+.card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: var(--surface-muted);
+  border-top: 1px solid var(--border-soft);
+}
+
+.question {
+  margin: 0 0 0.5rem;
+  font-size: 1.125rem;
+  font-weight: 900;
+  line-height: 1.25;
+  text-align: center;
+  letter-spacing: -0.01em;
+}
+.hint {
+  margin: 0 auto 1.25rem;
+  max-width: 34rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-align: center;
+}
+.question + .options { margin-top: 1.25rem; }
+
+.options { display: flex; flex-direction: column; gap: 0.5rem; }
+
+/* ---------- 3B secim butonu ---------- */
+
+.choice {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  width: 100%;
+  padding: 0.875rem 1rem;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 800;
+  line-height: 1.25;
+  text-align: left;
+  color: var(--text);
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-bottom-width: 5px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: var(--tap);
+}
+.choice:hover { border-color: var(--accent); background: var(--surface-muted); transform: translateY(-1px); border-bottom-width: 6px; }
+.choice:active { border-bottom-width: 2px; transform: translateY(3px); border-color: var(--accent-strong); }
+.choice--danger { border-color: var(--danger-border); }
+.choice--danger:hover { border-color: var(--danger); }
+.choice--danger:active { border-color: var(--danger); }
+
+.choice__text { display: flex; flex-direction: column; gap: 0.2rem; min-width: 0; flex: 1; }
+.choice__note { font-size: 0.7rem; font-weight: 500; color: var(--text-muted); line-height: 1.35; }
+.choice__key {
+  flex: none;
+  display: none;
+  min-width: 1.4rem;
+  padding: 0.1rem 0.35rem;
+  font-size: 0.65rem;
+  font-weight: 900;
+  color: var(--text-muted);
+  background: var(--surface-sunken);
+  border: 1px solid var(--border-soft);
+  border-radius: 0.35rem;
+  text-align: center;
+}
+@media (min-width: 640px) { .choice__key { display: block; } }
+
+.badge {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 2.5rem; height: 2.5rem;
+  border-radius: 0.625rem;
+  color: var(--accent-text);
+  background: var(--accent-soft);
+}
+.badge--danger { color: var(--danger); background: var(--danger-soft); }
+.badge--ok { color: var(--ok); background: var(--ok-soft); }
+.badge--muted { color: var(--text-muted); background: var(--surface-sunken); }
+
+/* ---------- ICD giris ekrani ---------- */
+
+.icd { text-align: center; }
+.icd__field {
+  width: 100%;
+  margin: 1rem 0 0.75rem;
+  padding: 0.9rem 1rem;
+  font: inherit;
+  font-size: 1.75rem;
+  font-weight: 900;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--text);
+  background: var(--surface-muted);
+  border: 3px solid var(--border);
+  border-radius: var(--radius);
+  transition: var(--tap);
+}
+.icd__field::placeholder { color: var(--text-muted); font-weight: 700; letter-spacing: 0; }
+.icd__field:focus { outline: none; border-color: var(--accent); box-shadow: var(--ring); }
+.icd__field[aria-invalid='true'] { border-color: var(--danger); }
+
+.btn-primary {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--accent);
+  border: 0;
+  border-bottom: 4px solid var(--accent-strong);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: var(--tap);
+}
+.btn-primary:hover { transform: translateY(-1px); }
+.btn-primary:active { transform: translateY(2px); border-bottom-width: 1px; }
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 900;
+  color: var(--text-muted);
+  background: transparent;
+  border: 0;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: var(--tap);
+}
+.btn-ghost:hover { color: var(--text); background: var(--surface-sunken); }
+.btn-ghost[hidden] { visibility: hidden; display: inline-flex; }
+
+.btn-dark {
+  padding: 0.5rem 0.9rem;
+  font: inherit;
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--surface);
+  background: var(--text);
+  border: 0;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: var(--tap);
+}
+.btn-dark:active { transform: scale(0.96); }
+
+.form-error {
+  margin: 0 0 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--danger);
+}
+.form-error[hidden] { display: none; }
+
+.quick { margin-top: 1.5rem; }
+.quick__label {
+  margin: 0 0 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border-soft);
+  font-size: 0.625rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.quick__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+@media (min-width: 560px) { .quick__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+.quick__btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  padding: 0.625rem 0.5rem;
+  font: inherit;
+  color: var(--text);
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-bottom-width: 4px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--tap);
+}
+.quick__btn:hover { border-color: var(--accent); }
+.quick__btn:active { border-bottom-width: 2px; transform: translateY(2px); }
+.quick__code { font-size: 0.8rem; font-weight: 900; color: var(--accent-text); }
+.quick__name { font-size: 0.65rem; font-weight: 600; color: var(--text-muted); text-align: center; line-height: 1.2; }
+
+/* ---------- Sonuc ekrani ---------- */
+
+.result { text-align: center; }
+.result__icon {
+  display: grid;
+  place-items: center;
+  width: 5rem; height: 5rem;
+  margin: 0 auto 1rem;
+  color: #fff;
+  border-radius: 1.5rem;
+  box-shadow: var(--shadow-md);
+}
+.result--ok .result__icon { background: var(--ok); }
+.result--no .result__icon { background: var(--danger); }
+
+.result__title {
+  margin: 0 0 0.75rem;
+  font-size: 1.75rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+.result--ok .result__title { color: var(--ok); }
+.result--no .result__title { color: var(--danger); }
+
+.result__reason {
+  max-width: 34rem;
+  margin: 0 auto;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.summary {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  text-align: left;
+  background: var(--surface-muted);
+  border: 2px solid var(--border-soft);
+  border-radius: var(--radius);
+}
+.summary__row + .summary__row { margin-top: 0.875rem; }
+.summary__label {
+  margin: 0 0 0.2rem;
+  font-size: 0.625rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  /* Kucuk punto etiket metni: WCAG AA icin --text-faint yeterli degil. */
+  color: var(--text-muted);
+}
+.summary__value { margin: 0; font-size: 0.95rem; font-weight: 800; }
+.summary__value--code { font-size: 1.25rem; color: var(--accent-text); }
+.summary__value--muted { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); }
+
+.notices { margin-top: 1rem; display: flex; flex-direction: column; gap: 0.5rem; text-align: left; }
+.notice {
+  display: flex;
+  gap: 0.625rem;
+  padding: 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.4;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--warn-border);
+  background: var(--warn-soft);
+  color: var(--warn);
+}
+.notice svg { flex: none; margin-top: 0.1rem; }
+
+.result__actions { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-top: 1.25rem; }
+.result__actions .btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.55rem 1rem;
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--text);
+  background: var(--surface-muted);
+  border: 1px solid var(--border);
+  border-radius: 0.625rem;
+  cursor: pointer;
+  transition: var(--tap);
+}
+.result__actions .btn-secondary:hover { border-color: var(--accent); color: var(--accent-text); }
+
+/* ---------- Alt bilgi / uyari ---------- */
+
+.footer {
+  padding: 0 0.25rem 0.5rem;
+  text-align: center;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+.footer p { margin: 0.25rem 0; }
+.footer__meta { font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.footer a { color: var(--text-muted); }
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 1.25rem;
+  transform: translate(-50%, 1rem);
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: calc(100vw - 2rem);
+  padding: 0.7rem 1rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--surface);
+  background: var(--text);
+  border-radius: 999px;
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.toast.is-visible { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+
+/* ---------- Animasyon ---------- */
+
+.fade-up { animation: fadeUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 0.8; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------- Yazdirma ---------- */
+
+@media print {
+  body { background: #fff; }
+  .splash, .topbar__actions, .card__footer, .result__actions, .toast { display: none !important; }
+  .app { max-width: none; padding: 0; }
+  .card { box-shadow: none; border: 1px solid #cbd5e1; }
+  .notice { border: 1px solid #b45309; }
+}
+</style>
+</head>
+<body>
+
+  <!-- Giris ekrani: tiklanabilir oldugu icin gercek bir <button> -->
+  <button id="splash" class="splash" type="button" aria-label="PET/BT SGK Uygunluk Rehberi uygulamasini baslat">
+    <span class="splash__mark">
+      <span class="splash__glow"></span>
+      <span class="splash__icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="2.2"/>
+          <ellipse cx="12" cy="12" rx="10" ry="4.5"/>
+          <ellipse cx="12" cy="12" rx="10" ry="4.5" transform="rotate(60 12 12)"/>
+          <ellipse cx="12" cy="12" rx="10" ry="4.5" transform="rotate(120 12 12)"/>
+        </svg>
+      </span>
+    </span>
+
+    <h1 class="splash__title">
+      <span>PET/BT</span>
+      <span class="accent">SGK REHBERI</span>
+    </h1>
+
+    <span class="splash__cta">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+      Baslamak icin dokunun
+    </span>
+
+    <span class="splash__footer">Gelistirici: Dr. A. Y.</span>
+  </button>
+
+  <!-- Ana uygulama -->
+  <div id="app" class="app is-entering" hidden>
+
+    <header class="topbar">
+      <div class="topbar__brand">
+        <span class="topbar__logo">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </span>
+        <div class="topbar__titles">
+          <h1 class="topbar__title">PET/BT SGK Uygunluk Rehberi</h1>
+          <p class="topbar__subtitle" id="app-subtitle">&nbsp;</p>
+        </div>
+      </div>
+      <div class="topbar__actions">
+        <button id="btn-theme" class="icon-btn" type="button" aria-label="Temayi degistir"></button>
+      </div>
+    </header>
+
+    <nav class="trail" id="trail" hidden aria-label="Izlenen yol">
+      <ol class="trail__list" id="trail-list"></ol>
+    </nav>
+
+    <main class="card">
+      <div class="card__body" id="wizard-body"></div>
+      <div class="card__footer">
+        <button id="btn-back" class="btn-ghost" type="button" hidden>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+          Geri
+        </button>
+        <button id="btn-reset" class="btn-dark" type="button">Bastan basla</button>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p class="footer__meta">Gelistirici: <span id="app-author"></span> &middot; <span id="data-version"></span></p>
+      <p>Sonuclar SUT metninin yorumlanmasina dayanir ve baglayici degildir. Nihai geri odeme karari SGK inceleme birimlerine aittir. Her vakada guncel SUT metni ve kurum uygulamalari esas alinmalidir.</p>
+    </footer>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <div id="live-region" class="visually-hidden" role="status" aria-live="polite"></div>
+
+  <noscript>
+    <div class="app" style="opacity:1">
+      <div class="card"><div class="card__body">
+        <h2 class="question">JavaScript gerekli</h2>
+        <p class="hint">Bu karar destek araci calismak icin JavaScript kullanir. Lutfen tarayicinizda JavaScript'i etkinlestirin.</p>
+      </div></div>
+    </div>
+  </noscript>
+
+  <script type="application/json" id="bundle-snapshot">{"meta":{"$schema":"../schema/meta.schema.json","schemaVersion":1,"dataVersion":"2024.04.30+1","app":{"title":"PET/BT SGK Uygunluk Rehberi","shortTitle":"PET/BT SGK","description":"SUT hukumlerine gore PET/BT tetkiklerinin SGK geri odeme uygunlugunu adim adim degerlendiren karar destek araci.","author":"Dr. A. Y.","locale":"tr-TR","themeColor":"#0f172a"},"regulation":{"name":"Saglik Uygulama Tebligi (SUT)","baseTebligDate":"2013-03-24","baseTebligGazette":"28597","trackedRevision":{"label":"30 Nisan 2024 SUT","effectiveDate":"2024-04-30","gazetteNumber":"32532","note":"Uygulamanin kurallari bu revizyona gore olusturulmustur. Yeni bir revizyon yayimlandiginda data/ altindaki dosyalar guncellenir."},"relevantSections":[{"id":"sut-2.4.4.I","label":"SUT 2.4.4.I - Pozitron Emisyon Tomografisi (PET) goruntuleme","note":"PET/BT endikasyonlari, kurum basamagi ve sure kisitlari."},{"id":"sut-ek-2b-tablo-1","label":"SUT EK-2/B Tablo-1 - FDG PET/BT odenen ICD-10 tani listesi","note":"F-18 FDG PET/BT icin gecerli onkolojik tani kodlari."}]},"disclaimer":{"short":"Bu arac bilgilendirme amaclidir, resmi SUT metninin yerine gecmez.","long":"Sonuclar SUT metninin yorumlanmasina dayanir ve baglayici degildir. Nihai geri odeme karari SGK inceleme birimlerine aittir. Her vakada guncel SUT metni ve kurum uygulamalari esas alinmalidir."},"review":{"lastClinicalReview":"2026-09-21","reviewIntervalDays":90,"maintainers":["@catikur"]},"runtime":{"bundleUrl":"bundle.json","autoRefresh":true,"refreshOnFocus":true,"refreshIntervalMinutes":60,"note":"Uygulama once HTML icine gomulu anlik goruntuyle acilir, ardindan arka planda bundleUrl'i cekip daha yeni bir dataVersion varsa sicak degistirir. Ag yoksa gomulu veriyle calismaya devam eder."}},"rules":{"$schema":"../schema/rules.schema.json","schemaVersion":1,"note":"Karar agaci. Saf veridir: fonksiyon icermez, bu yuzden sema ile dogrulanabilir ve kod degistirmeden guncellenebilir. Sablon belirtecleri: {code}, {codeLabel}, {tracer}, {tracerCode}, {marker.label}, {params.X}.","entryNode":"start","predicateOps":["always","allOf","anyOf","not","icdStartsWith","tracerIs","facilityIs"],"nodes":[{"id":"start","question":"Hangi tetkik planlaniyor?","hint":"Radyofarmasotigi secerek baslayin.","optionsFrom":"tracers"},{"id":"fdg_amac","question":"FDG PET/BT uygulama amaci?","options":[{"id":"tani","label":"Tani (kitle karakterizasyonu)","icon":"search","next":"fdg_tani"},{"id":"evreleme","label":"Evreleme (ilk degerlendirme)","icon":"layers","next":"fdg_evreleme"},{"id":"yeniden","label":"Yeniden evreleme (nuks)","icon":"refresh","next":"fdg_yeniden"},{"id":"yanit","label":"Tedaviye yanit degerlendirmesi","icon":"activity","next":"fdg_yanit"}]},{"id":"fdg_tani","question":"Kitle boyutu ve tetkik amaci?","options":[{"id":"buyuk","label":"Kitle >= 1 cm (invaziv islemden kacinma vb.)","icon":"ruler","outcome":{"status":"covered","indication":"Tani","sutRefs":["sut-2.4.4.I"]}},{"id":"kucuk","label":"Kitle \u003c 1 cm","icon":"reject","tone":"danger","outcome":{"status":"not-covered","reason":"Tani amacli PET/BT icin kitle boyutu asgari 1 cm olmalidir.","sutRefs":["sut-2.4.4.I"]}},{"id":"tarama","label":"Kanser taramasi / check-up","icon":"reject","tone":"danger","outcome":{"status":"not-covered","reason":"Tarama ve check-up amacli PET/BT SGK tarafindan karsilanmaz.","sutRefs":["sut-2.4.4.I"]}}]},{"id":"fdg_evreleme","question":"Hastanin tedavi durumu?","options":[{"id":"baslamadi","label":"Tedavi henuz baslamadi","icon":"check","branch":[{"when":{"icdStartsWith":["C43"]},"next":"melanom_evreleme_kriter"},{"outcome":{"status":"covered","indication":"Evreleme","sutRefs":["sut-2.4.4.I"]}}]},{"id":"basladi","label":"Tedavi sureci basladi","icon":"reject","tone":"danger","outcome":{"status":"not-covered","reason":"Evreleme amacli PET/BT tedavi oncesinde yapilmalidir.","sutRefs":["sut-2.4.4.I"]}}]},{"id":"melanom_evreleme_kriter","question":"Malign melanom (C43) evreleme kriteri saglaniyor mu?","hint":"Patoloji raporundaki Breslow kalinligi ve Clark duzeyi degerlendirilir.","options":[{"id":"saglaniyor","label":"Breslow kalinligi > 0,76 mm ve/veya Clark duzeyi > 3","note":"Patoloji raporunda bu sartlardan en az biri saglaniyor.","icon":"check","outcome":{"status":"covered","indication":"Evreleme (malign melanom)","sutRefs":["sut-2.4.4.I"]}},{"id":"saglanmiyor","label":"Kriterler saglanmiyor","icon":"reject","tone":"danger","outcome":{"status":"not-covered","reason":"Malign melanom evrelemesi icin Breslow kalinligi > 0,76 mm ve/veya Clark duzeyi > 3 olmasi sarttir.","sutRefs":["sut-2.4.4.I"]}}]},{"id":"fdg_yeniden","question":"Nuks suphesini destekleyen kanit nedir?","hint":"Yeniden evreleme icin asagidaki kanitlardan en az biri gereklidir.","options":[{"id":"patoloji","label":"Biyopsi / patoloji kaniti var","note":"Nuks suphesi histopatolojik veya sitolojik olarak dogrulandi.","icon":"biopsy","outcome":{"status":"covered","indication":"Yeniden evreleme (patolojik nuks)","sutRefs":["sut-2.4.4.I"]}},{"id":"markir","label":"{marker.label}","note":"Girilen ICD-10 koduna ({code}) ozgu tumor belirtecinde yukselme saptanmasi.","icon":"lab","outcome":{"status":"covered","indication":"Yeniden evreleme (biyokimyasal nuks)","sutRefs":["sut-2.4.4.I"]}},{"id":"goruntuleme","label":"Goruntuleme yontemlerinde (BT, MR, USG) nuks kuskusu","icon":"imaging","outcome":{"status":"covered","indication":"Yeniden evreleme (radyolojik nuks)","sutRefs":["sut-2.4.4.I"]}},{"id":"rutin-izlem","label":"Rutin izlem: malign melanom (3 yil) / yuksek dereceli NHL (2 yil)","note":"Yalnizca bu tani gruplarinda, belirtilen izlem suresi icinde gecerlidir.","icon":"activity","visibleWhen":{"icdStartsWith":["C43","C81","C82","C83","C84","C85"]},"outcome":{"status":"covered","indication":"Yeniden evreleme (rutin izlem)","sutRefs":["sut-2.4.4.I"]}},{"id":"kanit-yok","label":"Kanit yok, rutin kontrol","icon":"reject","tone":"danger","outcome":{"status":"not-covered","reason":"Belirtec artisi, patolojik kanit veya radyolojik suphe olmadan rutin kontrol amacli PET/BT odenmez.","sutRefs":["sut-2.4.4.I"]}}]},{"id":"fdg_yanit","question":"Hangi tedavi sonrasi degerlendirme yapiliyor?","options":[{"id":"kemo","label":"Kemoterapi","icon":"pill","next":"fdg_yanit_kemo"},{"id":"rt","label":"Radyoterapi","icon":"radiation","next":{"node":"common.tedavi_araligi","params":{"treatment":"Radyoterapi","okLabel":"3 ay veya daha fazla gecti","noLabel":"3 aydan az gecti","rejectReason":"Radyoterapi sonrasi yanit degerlendirmesi icin en az 3 ay beklenmelidir."}}},{"id":"hedef","label":"Hedefe yonelik tedavi (akilli ilac)","icon":"target","next":{"node":"common.tedavi_araligi","params":{"treatment":"Hedefe yonelik tedavi","okLabel":"3 ay veya daha fazla gecti","noLabel":"3 aydan az gecti","rejectReason":"Hedefe yonelik tedavi sonrasi yanit degerlendirmesi icin en az 3 ay beklenmelidir."}}},{"id":"radyonuklid","label":"Radyonuklid tedavi","icon":"atom","next":{"node":"common.tedavi_araligi","params":{"treatment":"Radyonuklid tedavi","okLabel":"1 ay veya daha fazla gecti","noLabel":"1 aydan az gecti","rejectReason":"Radyonuklid tedavi sonrasi yanit degerlendirmesi icin en az 1 ay beklenmelidir."}}}]},{"id":"fdg_yanit_kemo","question":"Kemoterapi sonrasi sure ve protokol durumu?","options":[{"id":"uygun","label":"Sure uygun (>= 15 gun) VE protokol degisikligi var","icon":"clock","outcome":{"status":"covered","indication":"Tedaviye yanitin degerlendirilmesi","sutRefs":["sut-2.4.4.I"]}},{"id":"protokol-ayni","label":"Sure uygun (>= 15 gun) FAKAT protokol degismedi","icon":"reject","tone":"danger","outcome":{"status":"not-covered","reason":"Kemoterapi protokolu degismediyse rutin yanit degerlendirmesi amacli PET/BT odenmez.","sutRefs":["sut-2.4.4.I"]}},{"id":"sure-kisa","label":"Sure uygun degil (\u003c 15 gun)","icon":"reject","tone":"danger","outcome":{"status":"not-covered","reason":"Kemoterapi sonrasi en az 15 gun beklenmelidir.","sutRefs":["sut-2.4.4.I"]}}]},{"id":"psma_amac","question":"Ga-68 PSMA PET/BT uygulama amaci?","options":[{"id":"tani","label":"Tani (2. biyopsi yerinin belirlenmesi)","note":"PSA > 4 ng/mL, PI-RADS > 3 ve rektal nodul mevcut; 1. biyopsi negatif, 2. biyopsi planlaniyor.","icon":"search","next":{"node":"common.merkez_3basamak","params":{"subject":"Tani/biyopsi amacli PSMA PET/BT","indication":"Tani (biyopsi lokasyonunun belirlenmesi)"}}},{"id":"evreleme","label":"Baslangic evreleme","note":"Gleason skoru > 7 veya PSA > 10 ng/mL.","icon":"layers","next":{"node":"common.merkez_3basamak","params":{"subject":"Evreleme amacli PSMA PET/BT","indication":"Baslangic evreleme"}}},{"id":"nuks","label":"Yeniden evreleme (biyokimyasal nuks)","note":"Tedavi sonrasi PSA yuksekligi.","icon":"refresh","next":{"node":"common.merkez_3basamak","params":{"subject":"Nuks degerlendirmesi amacli PSMA PET/BT","indication":"Yeniden evreleme (biyokimyasal nuks)"}}},{"id":"tedavi","label":"Radyonuklid tedavi planlamasi / yanit degerlendirmesi","note":"PSMA hedefli tedaviye uygunluk veya tedavi sonrasi yanit.","icon":"atom","next":{"node":"psma_tedavi_merkez","params":{"indication":"Radyonuklid tedavi planlamasi / yanit"}}}]},{"id":"psma_tedavi_merkez","parametric":true,"params":["indication"],"question":"Islemin yapilacagi merkez ve unite durumu?","hint":"Radyonuklid tedavi planlamasinda, yatakli tedavi unitesi bulunan ozel hastaneler de fatura edebilir.","options":[{"id":"tedavi-unitesi","label":"Yatakli radyonuklid tedavi unitesi olan hastane (kamu veya ozel)","icon":"atom","setsFacility":"radionuclide-therapy-unit","outcome":{"status":"covered","indication":"{params.indication}","sutRefs":["sut-2.4.4.I"]}},{"id":"ucuncu-basamak","label":"3. Basamak Resmi Saglik Kurumu","icon":"hospital","setsFacility":"tertiary-public","outcome":{"status":"covered","indication":"{params.indication}","sutRefs":["sut-2.4.4.I"]}},{"id":"uygun-degil","label":"Tedavi unitesi OLMAYAN 2. basamak veya ozel hastane","icon":"hospital-x","tone":"danger","setsFacility":"secondary-or-private","outcome":{"status":"not-covered","reason":"Radyonuklid tedavi planlamasi ve yanit degerlendirmesi icin 3. Basamak Resmi Saglik Kurumu VEYA yatakli radyonuklid tedavi unitesine sahip olmak sarttir.","sutRefs":["sut-2.4.4.I"]}}]},{"id":"dota_durum","question":"Noroendokrin tumor (NET) durumu?","options":[{"id":"tanili","label":"Tanili NET / medüller tiroid karsinomu","icon":"check","next":{"node":"common.merkez_3basamak","params":{"subject":"DOTATATE PET/BT","indication":"Evreleme / yeniden evreleme"}}},{"id":"supheli-odak","label":"Goruntuleme ile bulunamayan supheli odak","icon":"search","next":{"node":"common.merkez_3basamak","params":{"subject":"DOTATATE PET/BT","indication":"Tani (primer odak arastirmasi)"}}}]},{"id":"kolin_durum","question":"Hiperparatiroidi tanisi ve onceki tetkik durumu?","options":[{"id":"uygun","label":"USG normal/supheli VE Tc-99m MIBI SPECT negatif","icon":"check","outcome":{"status":"covered","indication":"Tani (paratiroid adenomu tespiti)","sutRefs":["sut-2.4.4.I"]}},{"id":"uygun-degil","label":"MIBI sintigrafisi yapilmadi veya lezyonu lokalize etti","icon":"reject","tone":"danger","outcome":{"status":"not-covered","reason":"SUT geregi once Tc-99m MIBI sintigrafisi yapilmali ve lokalizasyon saglanamamis olmalidir.","sutRefs":["sut-2.4.4.I"]}}]},{"id":"naf_durum","question":"Kemik PET (F-18 NaF) sartlari saglaniyor mu?","options":[{"id":"uygun","label":"Kesin onkolojik tani + supheli kemik sintigrafisi + 3 hekimli saglik kurulu raporu","note":"Rapor universite veya egitim-arastirma hastanesinden duzenlenmis olmalidir.","icon":"doc","outcome":{"status":"covered","indication":"Tani (kemik metastazi degerlendirmesi)","sutRefs":["sut-2.4.4.I"]}},{"id":"uygun-degil","label":"Rapor eksik veya kesin onkolojik tani yok","icon":"reject","tone":"danger","outcome":{"status":"not-covered","reason":"Kesin onkolojik tani, supheli kemik sintigrafisi ve universite/egitim-arastirma hastanesinden 3 hekimli rapor sarttir.","sutRefs":["sut-2.4.4.I"]}}]},{"id":"beyin_endikasyon","question":"Beyin PET endikasyonu?","options":[{"id":"epilepsi","label":"Dirençli epilepsi (cerrahi planlanan)","icon":"activity","next":{"node":"common.merkez_3basamak","params":{"subject":"Epilepsi endikasyonlu beyin PET/BT","indication":"Dirençli epilepsi odaginin belirlenmesi"}}},{"id":"demans","label":"Alzheimer / demans ayirici tanisi","icon":"search","next":"beyin_demans_rapor"}]},{"id":"beyin_demans_rapor","question":"Saglik kurulu raporu ve kurum durumu?","options":[{"id":"uygun","label":"3. Basamak kurumda yapiliyor VE 3. basamak saglik kurulu raporu var","icon":"doc","setsFacility":"tertiary-public","outcome":{"status":"covered","indication":"Tani (demans ayirici tanisi)","sutRefs":["sut-2.4.4.I"]}},{"id":"uygun-degil","label":"Rapor yok veya islem 2. basamakta yapiliyor","icon":"reject","tone":"danger","setsFacility":"secondary-or-private","outcome":{"status":"not-covered","reason":"Demans endikasyonunda 3. basamak saglik kurulu raporu ve islemin 3. basamakta yapilmasi zorunludur.","sutRefs":["sut-2.4.4.I"]}}]},{"id":"common.merkez_3basamak","parametric":true,"params":["subject","indication"],"question":"Islemin yapilacagi merkez basamagi?","options":[{"id":"ucuncu-basamak","label":"3. Basamak Resmi Saglik Kurumu","icon":"hospital","setsFacility":"tertiary-public","outcome":{"status":"covered","indication":"{params.indication}","sutRefs":["sut-2.4.4.I"]}},{"id":"ikinci-basamak","label":"2. Basamak veya ozel saglik kurumu","icon":"hospital-x","tone":"danger","setsFacility":"secondary-or-private","outcome":{"status":"not-covered","reason":"{params.subject} yalnizca 3. Basamak Resmi Saglik Kurumlarinda fatura edilebilir.","sutRefs":["sut-2.4.4.I"]}}]},{"id":"common.tedavi_araligi","parametric":true,"params":["treatment","okLabel","noLabel","rejectReason"],"question":"{params.treatment} uzerinden ne kadar sure gecti?","options":[{"id":"sure-uygun","label":"{params.okLabel}","icon":"clock","outcome":{"status":"covered","indication":"Tedaviye yanitin degerlendirilmesi","sutRefs":["sut-2.4.4.I"]}},{"id":"sure-kisa","label":"{params.noLabel}","icon":"reject","tone":"danger","outcome":{"status":"not-covered","reason":"{params.rejectReason}","sutRefs":["sut-2.4.4.I"]}}]}]},"tracers":{"$schema":"../schema/tracers.schema.json","schemaVersion":1,"note":"Radyofarmasotik kayitlari. Yeni bir tetkik eklemek icin buraya bir kayit, data/rules.json icine de ilgili dugumler eklenir; kod degisikligi gerekmez.","tracers":[{"id":"fdg","label":"F-18 FDG","sutCode":"801.440","icon":"tracer-fdg","order":10,"covered":true,"codeSet":"tablo-1","entryNode":"fdg_amac","askIcd":true,"icdPrompt":"Onkolojik tani ICD-10 kodunu girin","summary":"Onkolojik tani, evreleme, yeniden evreleme ve tedavi yaniti degerlendirmesinde kullanilan standart PET/BT tetkiki."},{"id":"psma","label":"Ga-68 PSMA","sutCode":"801.365","icon":"tracer-psma","order":20,"covered":true,"codeSet":"psma-tanilar","entryNode":"psma_amac","askIcd":true,"icdPrompt":"Prostat tanisina ait ICD-10 kodunu girin","summary":"Prostat kanserinde tani, evreleme, biyokimyasal nuks ve radyonuklid tedavi planlamasinda kullanilir."},{"id":"dota","label":"Ga-68 DOTATATE","sutCode":null,"icon":"tracer-dota","order":30,"covered":true,"codeSet":"net-tanilar","entryNode":"dota_durum","askIcd":true,"icdPrompt":"Noroendokrin tumor ICD-10 kodunu girin","summary":"Somatostatin reseptoru eksprese eden noroendokrin tumorlerde tani ve evreleme."},{"id":"choline","label":"F-18 Kolin","sutCode":null,"icon":"tracer-choline","order":40,"covered":true,"codeSet":"kolin-tanilar","entryNode":"kolin_durum","askIcd":true,"icdPrompt":"Hiperparatiroidi ICD-10 kodunu girin","summary":"Primer hiperparatiroidide, MIBI sintigrafisi lokalize edemediginde paratiroid adenomu arastirmasi."},{"id":"naf","label":"F-18 NaF (Kemik PET)","sutCode":null,"icon":"tracer-bone","order":50,"covered":true,"codeSet":"naf-onkolojik","entryNode":"naf_durum","askIcd":true,"icdPrompt":"Onkolojik tani ICD-10 kodunu girin","summary":"Kemik metastazi degerlendirmesinde, kemik sintigrafisi supheli kaldiginda."},{"id":"brain","label":"Beyin F-18 FDG","sutCode":null,"icon":"tracer-brain","order":60,"covered":true,"codeSet":"beyin-tanilar","entryNode":"beyin_endikasyon","askIcd":true,"icdPrompt":"Norolojik tani ICD-10 kodunu girin","summary":"Dirençli epilepside cerrahi oncesi odak belirleme ve demans ayirici tanisi."},{"id":"fapi","label":"FAPI PET/BT","sutCode":null,"icon":"tracer-fapi","order":70,"covered":false,"codeSet":null,"entryNode":null,"askIcd":false,"summary":"Fibroblast aktivasyon proteini hedefli PET/BT.","notCoveredOutcome":{"status":"not-covered","reason":"FAPI PET/BT, SUT geri odeme kapsaminda tanimli bir tetkik degildir.","sutRefs":["sut-2.4.4.I"]}}],"facilityLevels":[{"id":"tertiary-public","label":"3. Basamak Resmi Saglik Kurumu","shortLabel":"3. Basamak Resmi","icon":"hospital"},{"id":"radionuclide-therapy-unit","label":"Yatakli Radyonuklid Tedavi Unitesi bulunan hastane (kamu veya ozel)","shortLabel":"Radyonuklid Tedavi Unitesi","icon":"atom"},{"id":"secondary-or-private","label":"2. Basamak veya ozel saglik kurumu","shortLabel":"2. Basamak / Ozel","icon":"hospital-x"}]},"codeSets":{"$schema":"../schema/code-sets.schema.json","schemaVersion":1,"note":"ICD-10 kod kumeleri. Eslestirme 'prefix' mantigiyla yapilir: girilen kod, kume icindeki bir kodla basliyorsa eslesir (C349 -> C34). 'extends' ile kume birlesimi kurulur, boylece ayni kod listesi tekrarlanmaz. status=active disindaki kodlar kabul edilir fakat sonucta uyari gosterilir.","statusMeanings":{"active":"SUT metninden dogrulanmis, sorunsuz kullanilir.","needs-review":"Kaynak veride bulundu fakat dogrulanamadi; kabul edilir, sonucta uyari cikar.","proposed":"Ekip tarafindan eklenmesi onerildi; kabul edilir, sonucta uyari cikar."},"sets":[{"id":"tablo-1","label":"SUT EK-2/B Tablo-1 - FDG PET/BT onkolojik tani listesi","sutRef":"sut-ek-2b-tablo-1","enforcement":"block","rejectionMessage":"Girilen {code} kodu SUT Tablo-1 listesinde yer almiyor; F-18 FDG PET/BT bu tani ile odenmez.","codes":[{"code":"C00","label":"Dudak malign neoplazmi","group":"Bas-boyun"},{"code":"C01","label":"Dil kokunun malign neoplazmi","group":"Bas-boyun"},{"code":"C02","label":"Dilin diger ve tanimlanmamis kisimlari","group":"Bas-boyun"},{"code":"C03","label":"Dis eti malign neoplazmi","group":"Bas-boyun"},{"code":"C04","label":"Agiz tabani malign neoplazmi","group":"Bas-boyun"},{"code":"C05","label":"Damak malign neoplazmi","group":"Bas-boyun"},{"code":"C06","label":"Agzin diger ve tanimlanmamis kisimlari","group":"Bas-boyun"},{"code":"C07","label":"Parotis bezi malign neoplazmi","group":"Bas-boyun"},{"code":"C08","label":"Diger majör tukuruk bezleri malign neoplazmi","group":"Bas-boyun"},{"code":"C09","label":"Tonsil malign neoplazmi","group":"Bas-boyun"},{"code":"C10","label":"Orofarenks malign neoplazmi","group":"Bas-boyun"},{"code":"C11","label":"Nazofarenks malign neoplazmi","group":"Bas-boyun"},{"code":"C12","label":"Piriform sinus malign neoplazmi","group":"Bas-boyun"},{"code":"C13","label":"Hipofarenks malign neoplazmi","group":"Bas-boyun"},{"code":"C14","label":"Dudak, agiz ve farenkste diger bolgeler","group":"Bas-boyun"},{"code":"C15","label":"Ozofagus malign neoplazmi","group":"Gastrointestinal"},{"code":"C16","label":"Mide malign neoplazmi","group":"Gastrointestinal"},{"code":"C17","label":"Ince barsak malign neoplazmi","group":"Gastrointestinal"},{"code":"C18","label":"Kolon malign neoplazmi","group":"Gastrointestinal"},{"code":"C19","label":"Rektosigmoid bileske malign neoplazmi","group":"Gastrointestinal"},{"code":"C20","label":"Rektum malign neoplazmi","group":"Gastrointestinal"},{"code":"C21","label":"Anus ve anal kanal malign neoplazmi","group":"Gastrointestinal"},{"code":"C22","label":"Karaciger ve intrahepatik safra yollari","group":"Hepatobiliyer"},{"code":"C23","label":"Safra kesesi malign neoplazmi","group":"Hepatobiliyer"},{"code":"C24","label":"Diger ve tanimlanmamis safra yollari","group":"Hepatobiliyer"},{"code":"C25","label":"Pankreas malign neoplazmi","group":"Hepatobiliyer"},{"code":"C26","label":"Sindirim organlarinda diger/iyi tanimlanmamis bolgeler","group":"Gastrointestinal"},{"code":"C32","label":"Larenks malign neoplazmi","group":"Bas-boyun"},{"code":"C34","label":"Brons ve akciger malign neoplazmi","group":"Toraks"},{"code":"C37","label":"Timus malign neoplazmi","group":"Toraks"},{"code":"C38","label":"Kalp, mediasten ve plevra malign neoplazmi","group":"Toraks"},{"code":"C40","label":"Ekstremite kemik ve eklem kikirdagi","group":"Kemik-yumusak doku"},{"code":"C41","label":"Diger bolge kemik ve eklem kikirdagi","group":"Kemik-yumusak doku"},{"code":"C43","label":"Derinin malign melanomu","group":"Deri"},{"code":"C45","label":"Mezotelyoma","group":"Toraks"},{"code":"C49","label":"Diger bag ve yumusak doku malign neoplazmi","group":"Kemik-yumusak doku"},{"code":"C50","label":"Meme malign neoplazmi","group":"Meme"},{"code":"C51","label":"Vulva malign neoplazmi","group":"Jinekolojik"},{"code":"C52","label":"Vajina malign neoplazmi","group":"Jinekolojik"},{"code":"C53","label":"Serviks uteri malign neoplazmi","group":"Jinekolojik"},{"code":"C54","label":"Korpus uteri malign neoplazmi","group":"Jinekolojik"},{"code":"C55","label":"Uterus malign neoplazmi, kisim belirtilmemis","group":"Jinekolojik"},{"code":"C56","label":"Over malign neoplazmi","group":"Jinekolojik"},{"code":"C60","label":"Penis malign neoplazmi","group":"Uroonkoloji"},{"code":"C62","label":"Testis malign neoplazmi","group":"Uroonkoloji"},{"code":"C64","label":"Bobrek malign neoplazmi (renal pelvis haric)","group":"Uroonkoloji"},{"code":"C65","label":"Renal pelvis malign neoplazmi","group":"Uroonkoloji"},{"code":"C66","label":"Ureter malign neoplazmi","group":"Uroonkoloji"},{"code":"C67","label":"Mesane malign neoplazmi","group":"Uroonkoloji"},{"code":"C71","label":"Beyin malign neoplazmi","group":"Noroonkoloji"},{"code":"C73","label":"Tiroid bezi malign neoplazmi","group":"Endokrin"},{"code":"C74","label":"Adrenal (surrenal) bez malign neoplazmi","group":"Endokrin"},{"code":"C80","label":"Primer bolgesi bilinmeyen malign neoplazm","group":"Diger"},{"code":"C81","label":"Hodgkin lenfoma","group":"Hematoloji"},{"code":"C82","label":"Folikuler lenfoma","group":"Hematoloji"},{"code":"C83","label":"Non-folikuler lenfoma","group":"Hematoloji"},{"code":"C84","label":"Matur T/NK hucreli lenfomalar","group":"Hematoloji"},{"code":"C85","label":"Non-Hodgkin lenfoma, diger ve tanimlanmamis tipler","group":"Hematoloji"},{"code":"C90","label":"Multipl myelom ve malign plazma hucreli neoplazmlar","group":"Hematoloji"},{"code":"D48","label":"Diger/tanimlanmamis bolgelerin belirsiz davranisli neoplazmi","group":"Diger"},{"code":"M95","label":"(Dogrulanmamis) ICD-10'da M95 kas-iskelet sistemi deformitesi kodudur","group":"Dogrulanmali","status":"needs-review","reviewNote":"Kaynak uygulamanin kod listesinde yer aliyordu fakat M95 onkolojik bir kod degil. Muhtemelen veri giris hatasi (C95/C96 olabilir). SUT Tablo-1 metniyle karsilastirilip ya duzeltilmeli ya da cikarilmalidir. Bkz. docs/duzeltmeler.md#acik-konular"}]},{"id":"naf-onkolojik","label":"F-18 NaF kemik PET/BT icin gecerli onkolojik tanilar","sutRef":"sut-2.4.4.I","extends":["tablo-1"],"enforcement":"block","rejectionMessage":"Girilen {code} kodu kemik PET/BT icin gecerli bir onkolojik tani olarak tanimli degil.","codes":[{"code":"C61","label":"Prostat malign neoplazmi","group":"Uroonkoloji","status":"proposed","reviewNote":"Kaynak uygulamada kemik PET hizli secim tuslari C61 sunuyordu fakat dogrulama listesinde C61 yoktu; tusa basan kullanici her zaman 'odenmez' aliyordu. Kemik metastazi degerlendirmesinde prostat kanseri en sik endikasyon oldugu icin kume burada genisletildi. Bkz. docs/duzeltmeler.md#h-02"}]},{"id":"psma-tanilar","label":"Ga-68 PSMA PET/BT icin gecerli ICD-10 kodlari","sutRef":"sut-2.4.4.I","enforcement":"block","rejectionMessage":"PSMA PET/BT prostat kanseri (C61) veya kuvvetli prostat kanseri suphesi bildiren kodlarla odenir. Girilen kod: {code}.","codes":[{"code":"C61","label":"Prostat malign neoplazmi","group":"Uroonkoloji"},{"code":"D40","label":"Erkek genital organlarin belirsiz davranisli neoplazmi","group":"Uroonkoloji"},{"code":"Z03","label":"Suphelenilen hastalik icin gozlem ve degerlendirme","group":"Suphe"},{"code":"R97","label":"Anormal tumor belirtecleri (R97.2: yukselmis PSA duzeyi)","group":"Suphe","status":"proposed","reviewNote":"Kaynak uygulama 'PSA Yuksekligi' kisayolunu R39.1 koduna baglamisti; R39.1 idrar yapma guclugu kodudur. Yukselmis PSA'nin ICD-10 karsiligi R97.2'dir. Bkz. docs/duzeltmeler.md#h-03"},{"code":"R39","label":"Idrar sistemi ile ilgili diger belirti ve bulgular","group":"Suphe","status":"needs-review","reviewNote":"Kaynak uygulamadan geriye donuk uyumluluk icin korundu. Klinik olarak PSA yuksekligini karsilamaz; R97.2 tercih edilmelidir."}]},{"id":"kolin-tanilar","label":"F-18 Kolin PET/BT - primer hiperparatiroidi","sutRef":"sut-2.4.4.I","enforcement":"block","rejectionMessage":"Kolin PET/BT bu uygulamada primer hiperparatiroidi (E21.x) endikasyonu icin tanimlidir. Girilen kod: {code}.","codes":[{"code":"E21","label":"Hiperparatiroidizm ve paratiroid bezinin diger bozukluklari","group":"Endokrin"}]},{"id":"net-tanilar","label":"Ga-68 DOTATATE PET/BT - noroendokrin tumor tanilari","sutRef":"sut-2.4.4.I","enforcement":"warn","warningMessage":"Girilen {code} kodu noroendokrin tumor kod kumesinde yer almiyor. Islem engellenmedi, ancak SUT metni ve kurum uygulamasi ile dogrulayiniz.","codes":[{"code":"C7A","label":"Malign noroendokrin tumorler","group":"NET"},{"code":"C75","label":"Diger endokrin bezler ve ilgili yapilar","group":"NET"},{"code":"C73","label":"Tiroid bezi malign neoplazmi (medüller tiroid ca dahil)","group":"NET"},{"code":"C74","label":"Adrenal bez malign neoplazmi","group":"NET"},{"code":"C25","label":"Pankreas malign neoplazmi (endokrin pankreas dahil)","group":"NET"},{"code":"C17","label":"Ince barsak malign neoplazmi","group":"NET"},{"code":"C18","label":"Kolon malign neoplazmi","group":"NET"},{"code":"C16","label":"Mide malign neoplazmi","group":"NET"},{"code":"C34","label":"Brons ve akciger malign neoplazmi (bronsial karsinoid)","group":"NET"},{"code":"C37","label":"Timus malign neoplazmi (timik karsinoid)","group":"NET"},{"code":"C80","label":"Primer bolgesi bilinmeyen malign neoplazm","group":"NET"},{"code":"D3A","label":"Benign noroendokrin tumorler","group":"NET","status":"proposed","reviewNote":"ICD-10-CM benign noroendokrin tumor kodu. Turkiye ICD-10 uygulamasinda karsiligi kurum bazinda degisebilir; SUT metniyle dogrulanmali."},{"code":"E34.0","label":"Karsinoid sendrom","group":"NET","status":"proposed","reviewNote":"Karsinoid sendrom. DOTATATE endikasyonunda klinik olarak anlamli fakat SUT metninde acikca sayilip sayilmadigi dogrulanmali."}]},{"id":"beyin-tanilar","label":"Beyin F-18 FDG PET/BT - norolojik endikasyonlar","sutRef":"sut-2.4.4.I","enforcement":"warn","warningMessage":"Girilen {code} kodu beyin PET icin beklenen norolojik tani kumesinde degil. Islem engellenmedi, ancak endikasyonu dogrulayiniz.","codes":[{"code":"G30","label":"Alzheimer hastaligi","group":"Demans"},{"code":"G31","label":"Sinir sisteminin diger dejeneratif hastaliklari","group":"Demans"},{"code":"F00","label":"Alzheimer hastaliginda demans","group":"Demans"},{"code":"F01","label":"Vaskuler demans","group":"Demans"},{"code":"F03","label":"Tanimlanmamis demans","group":"Demans"},{"code":"G40","label":"Epilepsi","group":"Epilepsi"},{"code":"G41","label":"Status epileptikus","group":"Epilepsi"}]}]},"tumorMarkers":{"$schema":"../schema/tumor-markers.schema.json","schemaVersion":1,"note":"ICD-10 kodundan tumor belirteci onerisi. Yeniden evreleme adiminda secenek metnini kisisellestirmek icin kullanilir. Ilk eslesen kayit kazanir; hicbiri eslesmezse 'default' kullanilir.","default":{"markers":[],"label":"Ilgili tumor belirtecinde artis"},"mappings":[{"codes":["C50"],"markers":["CA 15-3","CEA"],"label":"Tumor belirteci (CA 15-3 / CEA) artisi"},{"codes":["C16","C18","C19","C20","C21","C25"],"markers":["CEA","CA 19-9"],"label":"Tumor belirteci (CEA / CA 19-9) artisi"},{"codes":["C22"],"markers":["AFP"],"label":"Tumor belirteci (AFP) artisi"},{"codes":["C62"],"markers":["AFP","Beta-hCG","LDH"],"label":"Tumor belirteci (AFP / Beta-hCG) artisi"},{"codes":["C56"],"markers":["CA 125"],"label":"Tumor belirteci (CA 125) artisi"},{"codes":["C61"],"markers":["PSA"],"label":"Tumor belirteci (PSA) artisi"},{"codes":["C73"],"markers":["Tiroglobulin","Kalsitonin"],"label":"Tumor belirteci (Tiroglobulin / Kalsitonin) artisi"},{"codes":["C7A","C75","D3A"],"markers":["Kromogranin A"],"label":"Tumor belirteci (Kromogranin A) artisi"},{"codes":["C15"],"markers":["CEA","CA 19-9"],"label":"Tumor belirteci (CEA / CA 19-9) artisi"},{"codes":["C34"],"markers":["CEA","NSE","CYFRA 21-1"],"label":"Tumor belirteci (CEA / NSE / CYFRA 21-1) artisi"}],"tracerOverrides":[{"tracer":"dota","markers":["Kromogranin A"],"label":"Tumor belirteci (Kromogranin A) artisi"}]},"quickPicks":{"$schema":"../schema/quick-picks.schema.json","schemaVersion":1,"note":"ICD giris ekranindaki kisayol tuslari. Buradaki her kod, ilgili radyofarmasotigin kod kumesinde bulunmak zorundadir; scripts/validate.mjs bunu denetler (kaynak uygulamadaki 'tusa basinca reddediliyor' hatasi bu sekilde onlenir).","byTracer":{"fdg":[{"code":"C34","label":"Akciger","icon":"lung"},{"code":"C50","label":"Meme","icon":"breast"},{"code":"C18","label":"Kolon","icon":"colon"},{"code":"C81","label":"Lenfoma","icon":"blood"},{"code":"C43","label":"Melanom","icon":"skin"},{"code":"C15","label":"Ozofagus","icon":"gi"},{"code":"C56","label":"Over","icon":"gyn"},{"code":"C80","label":"Primeri bilinmeyen","icon":"unknown"}],"psma":[{"code":"C61","label":"Prostat","icon":"prostate"},{"code":"R97.2","label":"PSA yuksekligi","icon":"lab"},{"code":"Z03","label":"Suphe / gozlem","icon":"search"}],"dota":[{"code":"C7A","label":"NET","icon":"net"},{"code":"C75","label":"Endokrin TM","icon":"endocrine"},{"code":"C25","label":"Pankreas","icon":"gi"},{"code":"C73","label":"Meduller tiroid","icon":"endocrine"}],"choline":[{"code":"E21.0","label":"Primer hiperparatiroidi","icon":"endocrine"}],"naf":[{"code":"C61","label":"Prostat","icon":"prostate"},{"code":"C50","label":"Meme","icon":"breast"},{"code":"C34","label":"Akciger","icon":"lung"}],"brain":[{"code":"G30","label":"Alzheimer","icon":"brain"},{"code":"G40","label":"Epilepsi","icon":"bolt"}]}},"generatedAt":"2026-09-21T21:31:22.797Z"}</script>
+  <script>(function () {
+'use strict';
+
+/* ==== src/engine.js ==== */
+/**
+ * PET/BT SGK uygunluk karar motoru.
+ *
+ * Tamamen saf (DOM'suz) bir modul: hem tarayicida hem de `node --test`
+ * altinda ayni kodla calisir. Klinik bilgi burada DEGIL, data/ altindaki
+ * JSON dosyalarindadir; bu dosya yalnizca o veriyi yorumlar.
+ */
+
+/** ICD-10 kodu icin kabul edilen bicim (C34, C7A, E21.0, R97.2, D3A ...). */
+const ICD_PATTERN = /^[A-Z][0-9][0-9A-Z](?:\.?[0-9A-Z]{1,4})?$/;
+
+/** Turkce klavyeden gelebilecek harfleri ASCII karsiligina cevirir. */
+const TR_TO_ASCII = { İ: 'I', I: 'I', ı: 'I', Ş: 'S', ş: 'S', Ğ: 'G', ğ: 'G', Ü: 'U', ü: 'U', Ö: 'O', ö: 'O', Ç: 'C', ç: 'C' };
+
+/**
+ * Kullanici girdisini kanonik ICD-10 bicimine getirir.
+ * Bosluklari ve ayraclari temizler, harfleri buyutur.
+ */
+function normalizeIcd(raw) {
+  if (typeof raw !== 'string') return '';
+  const mapped = [...raw.trim()].map((ch) => TR_TO_ASCII[ch] ?? ch).join('');
+  return mapped.toUpperCase().replace(/[\s\-_/]/g, '');
+}
+
+/** Girdinin ICD-10 bicimine uyup uymadigini soyler. */
+function isWellFormedIcd(code) {
+  return ICD_PATTERN.test(code);
+}
+
+/**
+ * `{code}`, `{params.x}`, `{marker.label}` gibi belirtecleri baglamdan doldurur.
+ * Bilinmeyen belirtec bulunursa oldugu gibi birakilir (sessiz veri kaybi olmasin).
+ */
+function renderTemplate(input, ctx) {
+  if (typeof input !== 'string') return input;
+  return input.replace(/\{([a-zA-Z0-9_.]+)\}/g, (match, path) => {
+    const value = path.split('.').reduce((acc, key) => (acc == null ? undefined : acc[key]), ctx);
+    return value == null ? match : String(value);
+  });
+}
+
+/**
+ * Veri icindeki kosul ifadelerini degerlendirir.
+ * Desteklenen isleclerin listesi data/rules.json -> predicateOps ile senkrondur.
+ */
+function evaluatePredicate(pred, ctx) {
+  if (pred == null) return true;
+  if (typeof pred === 'boolean') return pred;
+  if (pred.always !== undefined) return Boolean(pred.always);
+  if (pred.allOf) return pred.allOf.every((p) => evaluatePredicate(p, ctx));
+  if (pred.anyOf) return pred.anyOf.some((p) => evaluatePredicate(p, ctx));
+  if (pred.not) return !evaluatePredicate(pred.not, ctx);
+  if (pred.icdStartsWith) {
+    const icd = ctx.code || '';
+    return pred.icdStartsWith.some((prefix) => icd.startsWith(prefix));
+  }
+  if (pred.tracerIs) return pred.tracerIs.includes(ctx.tracerId);
+  if (pred.facilityIs) return pred.facilityIs.includes(ctx.facilityId);
+  throw new Error(`Bilinmeyen kosul isleci: ${JSON.stringify(pred)}`);
+}
+
+/** `extends` zincirini cozerek bir kod kumesinin tum kodlarini dondurur. */
+function resolveCodeSet(bundle, setId, seen = new Set()) {
+  const set = bundle.codeSets.sets.find((s) => s.id === setId);
+  if (!set) throw new Error(`Tanimsiz kod kumesi: ${setId}`);
+  if (seen.has(setId)) throw new Error(`Kod kumelerinde dongusel 'extends': ${setId}`);
+  seen.add(setId);
+
+  const inherited = (set.extends || []).flatMap((parentId) => resolveCodeSet(bundle, parentId, seen).codes);
+  // Kendi kodlari mirasi ezer (ayni kod iki kez varsa yereldeki kazanir).
+  const ownCodes = set.codes || [];
+  const byCode = new Map();
+  for (const entry of [...inherited, ...ownCodes]) byCode.set(entry.code, entry);
+
+  return { ...set, codes: [...byCode.values()] };
+}
+
+/**
+ * Bir ICD kodunu kod kumesiyle esler.
+ * Eslestirme "onek" mantigiyla yapilir: C349 -> C34.
+ * En uzun onek kazanir, boylece C7A gibi ozel kodlar C7 ile karismaz.
+ */
+function matchCode(bundle, setId, code) {
+  const set = resolveCodeSet(bundle, setId);
+  let best = null;
+  for (const entry of set.codes) {
+    const key = entry.code.replace('.', '');
+    const plain = code.replace('.', '');
+    if (plain.startsWith(key) && (!best || key.length > best.code.replace('.', '').length)) best = entry;
+  }
+  return { set, entry: best, matched: Boolean(best) };
+}
+
+/** ICD koduna (veya radyofarmasotige) gore tumor belirteci metnini secer. */
+function resolveMarker(bundle, code, tracerId) {
+  const markers = bundle.tumorMarkers;
+  for (const mapping of markers.mappings) {
+    if (mapping.codes.some((prefix) => code.startsWith(prefix))) return mapping;
+  }
+  const override = (markers.tracerOverrides || []).find((o) => o.tracer === tracerId);
+  if (override) return override;
+  return markers.default;
+}
+
+/** `start` dugumunun secenekleri data/tracers.json'dan uretilir. */
+function tracerOptions(bundle) {
+  return [...bundle.tracers.tracers]
+    .sort((a, b) => a.order - b.order)
+    .map((tracer) => ({
+      id: tracer.id,
+      label: tracer.sutCode ? `${tracer.label} (${tracer.sutCode})` : tracer.label,
+      note: tracer.summary,
+      icon: tracer.icon,
+      tone: tracer.covered ? 'neutral' : 'danger',
+      _tracer: tracer,
+    }));
+}
+
+/** Kisa gecmis rozeti metni (uzun etiketleri kisaltir). */
+function chipLabel(text, limit = 22) {
+  const base = String(text).split('(')[0].trim();
+  return base.length > limit ? `${base.slice(0, limit - 1)}…` : base;
+}
+
+/**
+ * Karar akisinin durum makinesi.
+ * Her `choose`/`submitIcd` cagrisi bir adim ilerletir, `back` bir adim geri alir.
+ * Gecmis, tam durum anlik goruntusu olarak saklanir; bu sayede geri alma
+ * sirasinda ICD veya kurum bilgisi "yapisik" kalmaz.
+ */
+class Wizard {
+  constructor(bundle) {
+    this.bundle = bundle;
+    this.reset();
+  }
+
+  reset() {
+    this.state = {
+      nodeId: this.bundle.rules.entryNode,
+      params: {},
+      tracerId: null,
+      code: '',
+      codeEntry: null,
+      facilityId: null,
+      outcome: null,
+      warnings: [],
+      trail: [],
+    };
+    this.history = [];
+    return this;
+  }
+
+  /** Geri alinabilir bir anlik goruntu alir. */
+  _snapshot() {
+    return JSON.parse(JSON.stringify(this.state));
+  }
+
+  _push() {
+    this.history.push(this._snapshot());
+  }
+
+  get canGoBack() {
+    return this.history.length > 0;
+  }
+
+  back() {
+    if (!this.canGoBack) return false;
+    this.state = this.history.pop();
+    return true;
+  }
+
+  get tracer() {
+    return this.bundle.tracers.tracers.find((t) => t.id === this.state.tracerId) || null;
+  }
+
+  /** Sablonlarda kullanilabilecek tum degerler. */
+  get context() {
+    const tracer = this.tracer;
+    const marker = this.state.code ? resolveMarker(this.bundle, this.state.code, this.state.tracerId) : this.bundle.tumorMarkers.default;
+    return {
+      code: this.state.code || '',
+      codeLabel: this.state.codeEntry?.label || '',
+      tracer: tracer?.label || '',
+      tracerCode: tracer?.sutCode || '',
+      tracerId: this.state.tracerId,
+      facilityId: this.state.facilityId,
+      params: this.state.params,
+      marker: { label: marker.label, list: (marker.markers || []).join(', ') },
+    };
+  }
+
+  _node(nodeId) {
+    const node = this.bundle.rules.nodes.find((n) => n.id === nodeId);
+    if (!node) throw new Error(`Tanimsiz dugum: ${nodeId}`);
+    return node;
+  }
+
+  /**
+   * Ekranda gosterilecek her seyi cozulmus halde dondurur.
+   * app.js bu yapiyi dogrudan cizer; hicbir klinik karar UI katmaninda verilmez.
+   */
+  currentView() {
+    if (this.state.outcome) return { kind: 'result', ...this.state.outcome, code: this.state.code, codeEntry: this.state.codeEntry, warnings: this.state.warnings, trail: this.state.trail };
+    if (this.state.nodeId === '__icd__') {
+      const tracer = this.tracer;
+      return {
+        kind: 'icd',
+        tracer,
+        prompt: tracer.icdPrompt || 'ICD-10 kodunu girin',
+        quickPicks: (this.bundle.quickPicks.byTracer[tracer.id] || []),
+        trail: this.state.trail,
+      };
+    }
+
+    const node = this._node(this.state.nodeId);
+    const ctx = this.context;
+    const rawOptions = node.optionsFrom === 'tracers' ? tracerOptions(this.bundle) : node.options;
+    const options = rawOptions
+      .filter((opt) => evaluatePredicate(opt.visibleWhen, ctx))
+      .map((opt) => ({
+        id: opt.id,
+        label: renderTemplate(opt.label, ctx),
+        note: opt.note ? renderTemplate(opt.note, ctx) : null,
+        icon: opt.icon || 'chevron',
+        tone: opt.tone || 'neutral',
+      }));
+
+    return {
+      kind: 'question',
+      nodeId: node.id,
+      question: renderTemplate(node.question, ctx),
+      hint: node.hint ? renderTemplate(node.hint, ctx) : null,
+      options,
+      trail: this.state.trail,
+    };
+  }
+
+  /** Bir sonucu sablonlari cozerek duruma yazar. */
+  _applyOutcome(outcome) {
+    const ctx = this.context;
+    this.state.outcome = {
+      status: outcome.status,
+      indication: outcome.indication ? renderTemplate(outcome.indication, ctx) : null,
+      reason: outcome.reason ? renderTemplate(outcome.reason, ctx) : null,
+      sutRefs: (outcome.sutRefs || []).map((id) => this.bundle.meta.regulation.relevantSections.find((s) => s.id === id) || { id, label: id }),
+    };
+  }
+
+  /** `next` alanini (dizge veya {node, params}) cozup duruma uygular. */
+  _goto(next) {
+    if (typeof next === 'string') {
+      this.state.nodeId = next;
+      this.state.params = {};
+      return;
+    }
+    this.state.nodeId = next.node;
+    const ctx = this.context;
+    this.state.params = Object.fromEntries(
+      Object.entries(next.params || {}).map(([k, v]) => [k, renderTemplate(v, ctx)]),
+    );
+  }
+
+  /** Kullanicinin secimini isler. */
+  choose(optionId) {
+    const node = this._node(this.state.nodeId);
+    this._push();
+
+    if (node.optionsFrom === 'tracers') {
+      const option = tracerOptions(this.bundle).find((o) => o.id === optionId);
+      if (!option) throw new Error(`Tanimsiz secenek: ${optionId}`);
+      const tracer = option._tracer;
+      this.state.tracerId = tracer.id;
+      this.state.trail.push(chipLabel(tracer.label));
+      if (!tracer.covered) {
+        this._applyOutcome(tracer.notCoveredOutcome);
+      } else if (tracer.askIcd) {
+        this.state.nodeId = '__icd__';
+      } else {
+        this._goto(tracer.entryNode);
+      }
+      return this.currentView();
+    }
+
+    const ctx = this.context;
+    const option = (node.options || [])
+      .filter((o) => evaluatePredicate(o.visibleWhen, ctx))
+      .find((o) => o.id === optionId);
+    if (!option) throw new Error(`Tanimsiz veya gorunur olmayan secenek: ${node.id}/${optionId}`);
+
+    this.state.trail.push(chipLabel(renderTemplate(option.label, ctx)));
+    if (option.setsFacility) this.state.facilityId = option.setsFacility;
+
+    if (option.outcome) {
+      this._applyOutcome(option.outcome);
+    } else if (option.branch) {
+      const freshCtx = this.context;
+      const arm = option.branch.find((b) => evaluatePredicate(b.when, freshCtx));
+      if (!arm) throw new Error(`Dallanmada eslesen kol yok: ${node.id}/${optionId}`);
+      if (arm.outcome) this._applyOutcome(arm.outcome);
+      else this._goto(arm.next);
+    } else if (option.next) {
+      this._goto(option.next);
+    } else {
+      throw new Error(`Secenegin sonucu yok: ${node.id}/${optionId}`);
+    }
+    return this.currentView();
+  }
+
+  /**
+   * ICD kodunu dogrular ve akisa devam eder.
+   * Basarisizlik durumunda {ok:false, error} doner; durum degismez.
+   */
+  submitIcd(raw) {
+    const code = normalizeIcd(raw);
+    if (!code) return { ok: false, error: 'Lutfen bir ICD-10 kodu girin.' };
+    if (!isWellFormedIcd(code)) {
+      return { ok: false, error: `"${code}" gecerli bir ICD-10 kodu bicimine benzemiyor. Ornek: C34, C50.9, E21.0` };
+    }
+
+    const tracer = this.tracer;
+    const { set, entry, matched } = matchCode(this.bundle, tracer.codeSet, code);
+
+    this._push();
+    this.state.code = code;
+    this.state.codeEntry = entry;
+    this.state.trail.push(`ICD: ${code}`);
+    this.state.warnings = [];
+
+    if (!matched && set.enforcement === 'block') {
+      this._applyOutcome({
+        status: 'not-covered',
+        reason: renderTemplate(set.rejectionMessage, { code }),
+        sutRefs: set.sutRef ? [set.sutRef] : [],
+      });
+      return { ok: true, view: this.currentView() };
+    }
+
+    if (!matched && set.enforcement === 'warn') {
+      this.state.warnings.push(renderTemplate(set.warningMessage, { code }));
+    }
+    if (entry && entry.status && entry.status !== 'active') {
+      this.state.warnings.push(
+        entry.status === 'needs-review'
+          ? `${entry.code} kodu dogrulanmayi bekliyor: ${entry.reviewNote || 'ayrinti icin docs/duzeltmeler.md'}`
+          : `${entry.code} kodu ekip onerisi olarak eklendi: ${entry.reviewNote || 'ayrinti icin docs/duzeltmeler.md'}`,
+      );
+    }
+
+    this._goto(tracer.entryNode);
+    return { ok: true, view: this.currentView() };
+  }
+}
+
+/** Veri dosyalarini tek bir pakete toplar ve butunlugunu dogrular. */
+function createBundle(parts) {
+  const bundle = {
+    meta: parts.meta,
+    rules: parts.rules,
+    tracers: parts.tracers,
+    codeSets: parts.codeSets,
+    tumorMarkers: parts.tumorMarkers,
+    quickPicks: parts.quickPicks,
+    generatedAt: parts.generatedAt || null,
+  };
+  return bundle;
+}
+
+/* ==== src/icons.js ==== */
+/**
+ * Ikon kumesi. Degerler SABIT, gelistirici tarafindan yazilmis SVG govdeleridir;
+ * hicbiri kullanici girdisiyle birlestirilmez. Bu yuzden innerHTML ile
+ * yerlestirilmeleri guvenlidir (bkz. src/app.js -> setIcon).
+ * Yeni bir ikon eklemek icin buraya bir anahtar eklemek yeterlidir; veri
+ * dosyalari ikonlara yalnizca ada gore atif yapar.
+ */
+const S = (body, opts = {}) =>
+  `<svg xmlns="http://www.w3.org/2000/svg" width="${opts.size || 20}" height="${opts.size || 20}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${opts.weight || 2.25}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${body}</svg>`;
+const ICONS = {
+  chevron: S('<polyline points="9 18 15 12 9 6"/>'),
+  back: S('<path d="m15 18-6-6 6-6"/>', { size: 16, weight: 3 }),
+  check: S('<polyline points="20 6 9 17 4 12"/>', { weight: 3 }),
+  reject: S('<circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>', { weight: 2.5 }),
+  search: S('<circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>'),
+  layers: S('<polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>'),
+  refresh: S('<path d="M21 12a9 9 0 1 1-2.64-6.36"/><polyline points="21 3 21 9 15 9"/>'),
+  activity: S('<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>'),
+  ruler: S('<path d="M21.17 3.22a2.5 2.5 0 0 0-3.54 0L3.22 17.63a2.5 2.5 0 0 0 3.54 3.54L21.17 6.76a2.5 2.5 0 0 0 0-3.54z"/><path d="m16 8-2 2M12 12l-2 2M8 16l-2 2"/>'),
+  clock: S('<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>'),
+  doc: S('<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>'),
+  hospital: S('<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><path d="M12 7v4M10 9h4"/>'),
+  'hospital-x': S('<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="10" y1="7" x2="14" y2="11"/><line x1="14" y1="7" x2="10" y2="11"/>'),
+  lab: S('<path d="M9 2v6.5L4.2 17A2 2 0 0 0 6 20h12a2 2 0 0 0 1.8-3L15 8.5V2"/><path d="M8 2h8"/><path d="M6.5 14h11"/>'),
+  imaging: S('<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/>'),
+  pill: S('<path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/>'),
+  radiation: S('<circle cx="12" cy="12" r="2.5"/><path d="M12 2v3M12 19v3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M2 12h3M19 12h3M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12"/>'),
+  target: S('<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>'),
+  atom: S('<circle cx="12" cy="12" r="2"/><ellipse cx="12" cy="12" rx="10" ry="4.5"/><ellipse cx="12" cy="12" rx="10" ry="4.5" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4.5" transform="rotate(120 12 12)"/>', { weight: 1.8 }),
+  biopsy: S('<path d="M14.5 2.5 21.5 9.5"/><path d="m18 6-10 10-5 1 1-5L14 2z"/><path d="m11 9 4 4"/>'),
+  brain: S('<path d="M9.5 2A2.5 2.5 0 0 0 7 4.5v.6A3 3 0 0 0 5 8a3 3 0 0 0 .5 1.7A3 3 0 0 0 4 12.3 3 3 0 0 0 6 15v.5A3.5 3.5 0 0 0 9.5 19a2.5 2.5 0 0 0 2.5-2.5V4.5A2.5 2.5 0 0 0 9.5 2Z"/><path d="M14.5 2A2.5 2.5 0 0 1 17 4.5v.6A3 3 0 0 1 19 8a3 3 0 0 1-.5 1.7A3 3 0 0 1 20 12.3 3 3 0 0 1 18 15v.5A3.5 3.5 0 0 1 14.5 19a2.5 2.5 0 0 1-2.5-2.5"/>', { weight: 1.8 }),
+  bolt: S('<path d="M13 2 3 14h9l-1 8 10-12h-9l1-8Z"/>'),
+  bone: S('<path d="M17 10c.7-.7 1.7-1 2.5-.6a2.5 2.5 0 0 0 1.4-4.6A2.5 2.5 0 0 0 16.4 3 2.4 2.4 0 0 0 15 5L10 10l-5 5a2.4 2.4 0 0 0-2 1.4 2.5 2.5 0 0 0 1.9 4.3 2.5 2.5 0 0 0 4.6-1.4c.4-.8.1-1.8-.6-2.5"/>', { weight: 1.8 }),
+  flask: S('<path d="M10 2v7.5L4.5 18A2 2 0 0 0 6.2 21h11.6a2 2 0 0 0 1.7-3L14 9.5V2"/><path d="M8.5 2h7"/>'),
+  dna: S('<path d="M4 2c0 5 16 5 16 10S4 17 4 22"/><path d="M20 2c0 5-16 5-16 10s16 5 16 10"/>', { weight: 1.8 }),
+  bolt2: S('<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>'),
+  warn: S('<path d="m12 3 9.5 16.5H2.5L12 3Z"/><line x1="12" y1="10" x2="12" y2="14"/><line x1="12" y1="17.5" x2="12" y2="17.5"/>', { size: 16, weight: 2.5 }),
+  print: S('<polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8" rx="1"/>', { size: 16 }),
+  copy: S('<rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>', { size: 16 }),
+  sun: S('<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>', { size: 18 }),
+  moon: S('<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>', { size: 18 }),
+  info: S('<circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="8"/>', { size: 18 }),
+  home: S('<path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/>', { size: 18 }),
+
+  // Radyofarmasotik ikonlari
+  'tracer-fdg': S('<circle cx="12" cy="12" r="2.5"/><path d="M12 2v3M12 19v3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M2 12h3M19 12h3M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12"/>'),
+  'tracer-psma': S('<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.5"/>'),
+  'tracer-dota': S('<path d="M4 2c0 5 16 5 16 10S4 17 4 22"/><path d="M20 2c0 5-16 5-16 10s16 5 16 10"/>', { weight: 1.8 }),
+  'tracer-choline': S('<path d="M10 2v7.5L4.5 18A2 2 0 0 0 6.2 21h11.6a2 2 0 0 0 1.7-3L14 9.5V2"/><path d="M8.5 2h7"/>'),
+  'tracer-bone': S('<path d="M17 10c.7-.7 1.7-1 2.5-.6a2.5 2.5 0 0 0 1.4-4.6A2.5 2.5 0 0 0 16.4 3 2.4 2.4 0 0 0 15 5L10 10l-5 5a2.4 2.4 0 0 0-2 1.4 2.5 2.5 0 0 0 1.9 4.3 2.5 2.5 0 0 0 4.6-1.4c.4-.8.1-1.8-.6-2.5"/>', { weight: 1.8 }),
+  'tracer-brain': S('<path d="M9.5 2A2.5 2.5 0 0 0 7 4.5v.6A3 3 0 0 0 5 8a3 3 0 0 0 .5 1.7A3 3 0 0 0 4 12.3 3 3 0 0 0 6 15v.5A3.5 3.5 0 0 0 9.5 19a2.5 2.5 0 0 0 2.5-2.5V4.5A2.5 2.5 0 0 0 9.5 2Z"/><path d="M14.5 2A2.5 2.5 0 0 1 17 4.5v.6A3 3 0 0 1 19 8a3 3 0 0 1-.5 1.7A3 3 0 0 1 20 12.3 3 3 0 0 1 18 15v.5A3.5 3.5 0 0 1 14.5 19a2.5 2.5 0 0 1-2.5-2.5"/>', { weight: 1.8 }),
+  'tracer-fapi': S('<path d="M14.5 2.5 21.5 9.5"/><path d="m18 6-10 10-5 1 1-5L14 2z"/><path d="m11 9 4 4"/>'),
+
+  // Hizli secim ikonlari
+  lung: S('<path d="M12 3v9"/><path d="M8.5 8.5C6 9 4 11 4 14v4a2 2 0 0 0 2 2h1.5a2 2 0 0 0 2-2v-6c0-2-.6-3-1-3.5Z"/><path d="M15.5 8.5C18 9 20 11 20 14v4a2 2 0 0 1-2 2h-1.5a2 2 0 0 1-2-2v-6c0-2 .6-3 1-3.5Z"/>', { weight: 1.8 }),
+  breast: S('<circle cx="12" cy="13" r="7"/><circle cx="12" cy="13" r="2"/>', { weight: 1.8 }),
+  colon: S('<path d="M5 4v8a4 4 0 0 0 4 4h2a4 4 0 0 1 4 4v0"/><path d="M5 4h6"/><path d="M19 20V8"/>', { weight: 1.8 }),
+  blood: S('<path d="M12 2.7 17 8a6.5 6.5 0 1 1-10 0z"/>', { weight: 1.8 }),
+  skin: S('<rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="12" r="3"/>', { weight: 1.8 }),
+  gi: S('<path d="M8 3v6a4 4 0 0 0 4 4 4 4 0 0 1 4 4v4"/><path d="M6 3h4"/>', { weight: 1.8 }),
+  gyn: S('<circle cx="12" cy="9" r="5"/><path d="M12 14v7M9 18h6"/>', { weight: 1.8 }),
+  unknown: S('<circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 2.5-3 4"/><line x1="12" y1="17.5" x2="12" y2="17.5"/>', { weight: 1.8 }),
+  prostate: S('<circle cx="12" cy="12" r="8"/><path d="M8.5 13.5c1.5 2 5.5 2 7 0"/>', { weight: 1.8 }),
+  net: S('<circle cx="12" cy="12" r="3"/><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="19" cy="18" r="2"/><path d="m6.7 7.4 2.8 2.8M17.3 7.4l-2.8 2.8M6.7 16.6l2.8-2.8M17.3 16.6l-2.8-2.8"/>', { weight: 1.8 }),
+  endocrine: S('<path d="M12 4c-3 0-5 2-5 4.5S9 13 12 13s5-2 5-4.5S15 4 12 4Z"/><path d="M12 13v7"/><path d="M9 17h6"/>', { weight: 1.8 }),
+};
+
+/** Ada gore ikon govdesi dondurur; bilinmeyen adlarda genel bir ikona duser. */
+function icon(name) {
+  return ICONS[name] || ICONS.chevron;
+}
+
+/* ==== src/app.js ==== */
+/**
+ * UI katmani. Klinik karar vermez; yalnizca src/engine.js'in urettigi
+ * gorunumu cizer ve kullanici olaylarini motora iletir.
+ *
+ * Guvenlik notu: kullanici kaynakli hicbir metin innerHTML ile
+ * yerlestirilmez. Metinler textContent ile, ikonlar ise yalnizca
+ * src/icons.js icindeki sabit SVG tablosundan yazilir.
+ */
+
+
+/* ---------------------------------------------------------------- yardimci */
+
+const $ = (sel, root = document) => root.querySelector(sel);
+
+function el(tag, props = {}, children = []) {
+  const node = document.createElement(tag);
+  for (const [key, value] of Object.entries(props)) {
+    if (value == null || value === false) continue;
+    if (key === 'class') node.className = value;
+    else if (key === 'text') node.textContent = value;
+    else if (key === 'dataset') Object.assign(node.dataset, value);
+    else if (key.startsWith('on')) node.addEventListener(key.slice(2).toLowerCase(), value);
+    else node.setAttribute(key, value === true ? '' : String(value));
+  }
+  for (const child of [].concat(children)) {
+    if (child == null) continue;
+    node.append(typeof child === 'string' ? document.createTextNode(child) : child);
+  }
+  return node;
+}
+
+/** Sabit SVG tablosundan ikon yerlestirir (kullanici verisi karismaz). */
+function iconEl(name, className) {
+  const span = el('span', { class: className, 'aria-hidden': 'true' });
+  span.innerHTML = icon(name);
+  return span;
+}
+
+function badge(name, tone) {
+  const variant = tone === 'danger' ? 'badge badge--danger' : tone === 'ok' ? 'badge badge--ok' : tone === 'muted' ? 'badge badge--muted' : 'badge';
+  return iconEl(name, variant);
+}
+
+/* --------------------------------------------------------------- uygulama */
+function mountApp(rootBundle, options = {}) {
+  let bundle = rootBundle;
+  let wizard = new Wizard(bundle);
+
+  const dom = {
+    splash: $('#splash'),
+    app: $('#app'),
+    body: $('#wizard-body'),
+    trail: $('#trail'),
+    trailList: $('#trail-list'),
+    back: $('#btn-back'),
+    reset: $('#btn-reset'),
+    theme: $('#btn-theme'),
+    subtitle: $('#app-subtitle'),
+    dataVersion: $('#data-version'),
+    author: $('#app-author'),
+    toast: $('#toast'),
+    live: $('#live-region'),
+  };
+
+  /* ---- tema ---- */
+
+  const THEME_KEY = 'petct-sgk-theme';
+  function applyTheme(theme) {
+    document.documentElement.dataset.theme = theme;
+    dom.theme.replaceChildren(iconEl(theme === 'dark' ? 'sun' : 'moon'));
+    dom.theme.setAttribute('aria-label', theme === 'dark' ? 'Acik temaya gec' : 'Koyu temaya gec');
+    try { localStorage.setItem(THEME_KEY, theme); } catch { /* gizli sekmede sessizce gec */ }
+  }
+  function initTheme() {
+    let stored = null;
+    try { stored = localStorage.getItem(THEME_KEY); } catch { /* yoksay */ }
+    const preferred = stored || (window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    applyTheme(preferred);
+  }
+  dom.theme.addEventListener('click', () => {
+    applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
+  });
+
+  /* ---- bildirim ---- */
+
+  let toastTimer;
+  function toast(message) {
+    dom.toast.textContent = message;
+    dom.toast.classList.add('is-visible');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => dom.toast.classList.remove('is-visible'), 4000);
+  }
+
+  function announce(message) {
+    dom.live.textContent = message;
+  }
+
+  /* ---- ust bilgi ---- */
+
+  function paintChrome() {
+    const rev = bundle.meta.regulation.trackedRevision;
+    dom.subtitle.textContent = rev.label;
+    dom.dataVersion.textContent = `Veri surumu ${bundle.meta.dataVersion}`;
+    dom.author.textContent = bundle.meta.app.author;
+    document.title = bundle.meta.app.title;
+  }
+
+  /* ---- izlenen yol ---- */
+
+  function paintTrail(trail) {
+    dom.trail.hidden = trail.length === 0;
+    dom.trailList.replaceChildren(...trail.map((label) => el('li', { class: 'trail__chip', text: label })));
+    dom.trailList.scrollLeft = dom.trailList.scrollWidth;
+  }
+
+  /* ---- ekranlar ---- */
+
+  function renderQuestion(view) {
+    const options = el('div', { class: 'options', role: 'group', 'aria-label': view.question });
+    view.options.forEach((opt, index) => {
+      const texts = [el('span', { text: opt.label })];
+      if (opt.note) texts.push(el('span', { class: 'choice__note', text: opt.note }));
+      options.append(
+        el('button', {
+          type: 'button',
+          class: opt.tone === 'danger' ? 'choice choice--danger' : 'choice',
+          onClick: () => select(opt.id),
+          dataset: { optionId: opt.id },
+        }, [
+          badge(opt.icon, opt.tone),
+          el('span', { class: 'choice__text' }, texts),
+          index < 9 ? el('kbd', { class: 'choice__key', text: String(index + 1) }) : null,
+        ]),
+      );
+    });
+
+    dom.body.replaceChildren(el('div', { class: 'fade-up' }, [
+      el('h2', { class: 'question', text: view.question }),
+      view.hint ? el('p', { class: 'hint', text: view.hint }) : null,
+      options,
+    ]));
+    announce(view.question);
+  }
+
+  function renderIcd(view) {
+    const error = el('p', { class: 'form-error', role: 'alert', hidden: true });
+    const input = el('input', {
+      type: 'text',
+      id: 'icd-input',
+      class: 'icd__field',
+      placeholder: 'Orn: C34',
+      autocomplete: 'off',
+      autocapitalize: 'characters',
+      spellcheck: 'false',
+      inputmode: 'text',
+      'aria-label': view.prompt,
+      'aria-describedby': 'icd-help',
+    });
+
+    function submit(raw) {
+      const result = wizard.submitIcd(raw ?? input.value);
+      if (!result.ok) {
+        error.textContent = result.error;
+        error.hidden = false;
+        input.setAttribute('aria-invalid', 'true');
+        input.focus();
+        announce(result.error);
+        return;
+      }
+      paint();
+    }
+
+    input.addEventListener('input', () => {
+      error.hidden = true;
+      input.removeAttribute('aria-invalid');
+    });
+    input.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') { event.preventDefault(); submit(); }
+    });
+
+    const quick = view.quickPicks.length
+      ? el('div', { class: 'quick' }, [
+          el('p', { class: 'quick__label', text: 'Hizli secim' }),
+          el('div', { class: 'quick__grid' }, view.quickPicks.map((pick) =>
+            el('button', {
+              type: 'button',
+              class: 'quick__btn',
+              onClick: () => submit(pick.code),
+              'aria-label': `${pick.label} (${pick.code})`,
+            }, [
+              iconEl(pick.icon),
+              el('span', { class: 'quick__code', text: pick.code }),
+              el('span', { class: 'quick__name', text: pick.label }),
+            ]))),
+        ])
+      : null;
+
+    dom.body.replaceChildren(el('div', { class: 'icd fade-up' }, [
+      el('h2', { class: 'question', text: view.prompt }),
+      el('p', { class: 'hint', id: 'icd-help', text: `${view.tracer.label} icin gecerli tani kodu. Nokta kullanabilirsiniz (orn. C50.9).` }),
+      input,
+      error,
+      el('button', { type: 'button', class: 'btn-primary', onClick: () => submit() }, ['Kontrol et']),
+      quick,
+    ]));
+
+    input.focus({ preventScroll: true });
+    announce(view.prompt);
+  }
+
+  function renderResult(view) {
+    const ok = view.status === 'covered';
+
+    const summary = ok
+      ? el('div', { class: 'summary' }, [
+          el('div', { class: 'summary__row' }, [
+            el('p', { class: 'summary__label', text: 'Bildirilecek endikasyon' }),
+            el('p', { class: 'summary__value', text: view.indication || '-' }),
+          ]),
+          view.code ? el('div', { class: 'summary__row' }, [
+            el('p', { class: 'summary__label', text: 'Gecerli ICD-10' }),
+            el('p', { class: 'summary__value summary__value--code', text: view.code }),
+            view.codeEntry?.label ? el('p', { class: 'summary__value summary__value--muted', text: view.codeEntry.label }) : null,
+          ]) : null,
+          view.sutRefs?.length ? el('div', { class: 'summary__row' }, [
+            el('p', { class: 'summary__label', text: 'Dayanak' }),
+            ...view.sutRefs.map((ref) => el('p', { class: 'summary__value summary__value--muted', text: ref.label })),
+          ]) : null,
+        ])
+      : null;
+
+    const notices = (view.warnings || []).length
+      ? el('div', { class: 'notices' }, view.warnings.map((text) =>
+          el('div', { class: 'notice' }, [iconEl('warn'), el('span', { text })])))
+      : null;
+
+    dom.body.replaceChildren(el('div', { class: `result fade-up ${ok ? 'result--ok' : 'result--no'}` }, [
+      iconEl(ok ? 'check' : 'reject', 'result__icon'),
+      el('h2', { class: 'result__title', text: ok ? 'SGK UYGUN' : 'KAPSAM DISI' }),
+      view.reason ? el('p', { class: 'result__reason', text: view.reason }) : null,
+      summary,
+      notices,
+      el('div', { class: 'result__actions' }, [
+        el('button', { type: 'button', class: 'btn-secondary', onClick: () => copySummary(view) }, [iconEl('copy'), 'Ozeti kopyala']),
+        el('button', { type: 'button', class: 'btn-secondary', onClick: () => window.print() }, [iconEl('print'), 'Yazdir']),
+      ]),
+    ]));
+    announce(ok ? `Sonuc: SGK uygun. ${view.indication || ''}` : `Sonuc: kapsam disi. ${view.reason || ''}`);
+  }
+
+  /** Sonucu duz metin olarak panoya kopyalar (rapor/epikriz icin). */
+  async function copySummary(view) {
+    const rev = bundle.meta.regulation.trackedRevision;
+    const lines = [
+      `PET/BT SGK uygunluk degerlendirmesi (${rev.label})`,
+      `Sonuc: ${view.status === 'covered' ? 'SGK UYGUN' : 'KAPSAM DISI'}`,
+      view.indication ? `Endikasyon: ${view.indication}` : null,
+      view.code ? `ICD-10: ${view.code}${view.codeEntry?.label ? ` - ${view.codeEntry.label}` : ''}` : null,
+      view.reason ? `Gerekce: ${view.reason}` : null,
+      `Izlenen yol: ${view.trail.join(' > ')}`,
+      ...(view.warnings || []).map((w) => `Uyari: ${w}`),
+      `Veri surumu: ${bundle.meta.dataVersion}`,
+      bundle.meta.disclaimer.short,
+    ].filter(Boolean);
+
+    const text = lines.join('\n');
+    try {
+      await navigator.clipboard.writeText(text);
+      toast('Ozet panoya kopyalandi.');
+    } catch {
+      toast('Kopyalama desteklenmiyor; metni secip kopyalayabilirsiniz.');
+    }
+  }
+
+  /* ---- akis kontrolu ---- */
+
+  function select(optionId) {
+    try {
+      wizard.choose(optionId);
+      paint();
+    } catch (error) {
+      console.error(error);
+      toast('Beklenmeyen bir durum olustu, akis basa alindi.');
+      wizard.reset();
+      paint();
+    }
+  }
+
+  function paint() {
+    const view = wizard.currentView();
+    paintTrail(view.trail);
+    dom.back.hidden = !wizard.canGoBack;
+    if (view.kind === 'icd') renderIcd(view);
+    else if (view.kind === 'result') renderResult(view);
+    else renderQuestion(view);
+  }
+
+  dom.back.addEventListener('click', () => { if (wizard.back()) paint(); });
+  dom.reset.addEventListener('click', () => { wizard.reset(); paint(); });
+
+  // Klavye: 1-9 secenek, Backspace geri, Esc basa don
+  document.addEventListener('keydown', (event) => {
+    if (dom.app.hidden) return;
+    const typing = event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement;
+    if (event.key === 'Escape') { wizard.reset(); paint(); return; }
+    if (event.key === 'Backspace' && !typing) { event.preventDefault(); if (wizard.back()) paint(); return; }
+    if (typing || event.metaKey || event.ctrlKey || event.altKey) return;
+    if (/^[1-9]$/.test(event.key)) {
+      const buttons = dom.body.querySelectorAll('.choice');
+      buttons[Number(event.key) - 1]?.click();
+    }
+  });
+
+  /* ---- veri tazeleme ---- */
+
+  /**
+   * Arka planda daha yeni bir veri paketi arar.
+   * Basarisiz olursa sessizce gomulu anlik goruntuyle devam eder;
+   * cevrimdisi veya file:// kullanimi bu yuzden bozulmaz.
+   */
+  async function refreshBundle({ silent = true } = {}) {
+    const rt = bundle.meta.runtime;
+    if (!rt?.autoRefresh || !rt.bundleUrl) return false;
+    try {
+      const response = await fetch(`${rt.bundleUrl}?t=${Date.now()}`, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const fresh = await response.json();
+      if (!fresh?.meta?.dataVersion) throw new Error('Paket bicimi taninmadi');
+      if (fresh.meta.dataVersion === bundle.meta.dataVersion && fresh.generatedAt === bundle.generatedAt) return false;
+
+      bundle = createBundle({ ...fresh, generatedAt: fresh.generatedAt });
+      wizard = new Wizard(bundle);
+      paintChrome();
+      paint();
+      toast(`Veri guncellendi: surum ${bundle.meta.dataVersion}`);
+      return true;
+    } catch (error) {
+      if (!silent) toast('Guncel veri alinamadi; gomulu surum kullaniliyor.');
+      return false;
+    }
+  }
+
+  function scheduleRefresh() {
+    const rt = bundle.meta.runtime;
+    if (!rt?.autoRefresh) return;
+    refreshBundle();
+    if (rt.refreshIntervalMinutes > 0) {
+      setInterval(() => refreshBundle(), rt.refreshIntervalMinutes * 60_000);
+    }
+    if (rt.refreshOnFocus) {
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') refreshBundle();
+      });
+    }
+  }
+
+  /* ---- giris ekrani ---- */
+
+  function start() {
+    dom.splash.classList.add('is-leaving');
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', getComputedStyle(document.body).backgroundColor);
+    setTimeout(() => {
+      dom.splash.hidden = true;
+      dom.app.hidden = false;
+      requestAnimationFrame(() => dom.app.classList.remove('is-entering'));
+      dom.body.querySelector('.choice')?.focus({ preventScroll: true });
+    }, 420);
+  }
+
+  dom.splash.addEventListener('click', start);
+  dom.splash.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); start(); }
+  });
+
+  initTheme();
+  paintChrome();
+  paint();
+  scheduleRefresh();
+
+  if (options.skipSplash) start();
+
+  return { refreshBundle, get bundle() { return bundle; } };
+}
+
+/** HTML icine gomulu anlik goruntuyu okur ve uygulamayi baslatir. */
+function boot() {
+  const raw = document.getElementById('bundle-snapshot')?.textContent;
+  if (!raw) throw new Error('Gomulu veri paketi bulunamadi.');
+  const bundle = createBundle(JSON.parse(raw));
+  return mountApp(bundle);
+}
+
+
+document.addEventListener("DOMContentLoaded", boot);
+
+})();
+</script>
+</body>
+</html>
